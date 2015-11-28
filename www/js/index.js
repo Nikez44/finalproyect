@@ -48,7 +48,7 @@ var app = {
             map.panTo(latLng);
         }
 
-        var image = 'img/marker-514.png';
+        var image = 'img/marker_514.png';
         // Create a marker and set its position.
         var marker = new google.maps.Marker({
             map: map,
