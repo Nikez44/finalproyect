@@ -45,8 +45,7 @@ function initMarker(){
 function drawMarker(pos){
     map.addMarker({
         position: pos,
-        title: "Hello GoogleMap for Cordova!",
-        icon: 'green'
+        title: "Hello GoogleMap for Cordova!"
     });
 }
 

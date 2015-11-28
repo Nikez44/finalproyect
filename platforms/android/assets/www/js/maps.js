@@ -28,7 +28,7 @@ function drawMap(position){
 
 
     map.on(plugin.google.maps.event.MAP_LONG_CLICK, function(latLng) {
-        alert("Map was long clicked.\n" + latLng.toUrlValue());
+        //alert("Map was long clicked.\n" + latLng.toUrlValue());
         drawMarker(latLng);
     });
 
@@ -45,8 +45,7 @@ function initMarker(){
 function drawMarker(pos){
     map.addMarker({
         position: pos,
-        title: "Hello GoogleMap for Cordova!",
-        icon: 'green'
+        title: "Hello GoogleMap for Cordova!"
     });
 }
 
