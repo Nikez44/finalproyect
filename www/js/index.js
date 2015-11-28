@@ -33,7 +33,7 @@ var app = {
         var map = new google.maps.Map(document.getElementById('map'), {
             center: myLatLng,
             scrollwheel: true,
-            zoom: 15
+            zoom: 10
         });
 
         map.addListener('click', function(e) {
