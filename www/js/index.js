@@ -51,20 +51,16 @@ function fillListView(){
         tx.executeSql('SELECT * FROM maps', [], function (tx, result) {
             for (var i = 0; i < result.rows.length; i++) {
                 var item = result.rows.item(i);
-                var element = $('<div data-role="collapsible" data-inset="false" class="ui-collapsible ui-collapsible-themed-content ui-collapsible-collapsed">' +
-                                    '<h4 class="ui-collapsible-heading ui-collapsible-heading-collapsed">' +
-                                        '<a href="#" class="ui-collapsible-heading-toggle ui-btn ui-icon-plus ui-btn-icon-left ui-btn-inherit waves-effect waves-button waves-effect waves-button waves-effect waves-button">' +
-                                            item.name +
-                                            '<span class="ui-collapsible-heading-status"> click to expand contents</span>' +
-                                        '</a>' +
+                var element = $('<div data-role="collapsible" data-inset="false">' +
+                                    '<h4>' +
+                                        item.name +
                                     '</h4>' +
-                                    '<div class="ui-collapsible-content ui-body-inherit ui-collapsible-content-collapsed" aria-hidden="true">' +
-                                        '<ul data-role="listview" class="ui-listview">' +
-                                            '<li><a href="#" class="ui-btn ui-btn-icon-right ui-icon-carat-r waves-effect waves-button waves-effect waves-button waves-effect waves-button">Lugar 1</a></li>' +
-                                        '</ul>' +
-                                    '</div>' +
+                                    '<ul data-role="listview" class="ui-listview">' +
+                                        '<li><a href="#" class="ui-btn ui-btn-icon-right ui-icon-carat-r waves-effect waves-button waves-effect waves-button waves-effect waves-button">Lugar 1</a></li>' +
+                                    '</ul>' +
                                 '</div>');
                 $('#maps-list').append(element);
+                $('#maps-list').collapsibleset()
             }
         });
     });
