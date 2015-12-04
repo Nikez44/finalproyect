@@ -21,22 +21,28 @@ function createDataBase(){
         tx.executeSql('DROP TABLE IF EXISTS maps');
         tx.executeSql('DROP TABLE IF EXISTS Markers');
 
-        tx.executeSql('CREATE TABLE IF NOT EXISTS maps (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, ' +
+        tx.executeSql('CREATE TABLE IF NOT EXISTS maps (' +
+            'id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, ' +
             'name VARCHAR(45), ' +
             'latitud DOUBLE,' +
             'longitud DOUBLE,' +
-            'zoom INTEGER)');
+            'zoom INTEGER' +
+            ');');
 
-        tx.executeSql('CREATE TABLE IF NOT EXISTS markers (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, ' +
+        tx.executeSql('CREATE TABLE IF NOT EXISTS markers (' +
+            'id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, ' +
             'title VARCHAR(45), ' +
             'latitud DOUBLE,' +
             'longitud DOUBLE,' +
+            'range DOUBLE,' +
             'visited TINYINT(1),' +
-            'map_id INTEGER)');
+            'map_id INTEGER,' +
+            'FOREIGN KEY(map_id) REFERENCES maps(id)' +
+            ');');
 
         tx.executeSql("INSERT INTO maps (name, latitud, longitud, zoom) VALUES ('Mapa 1', '3.57', '4.44', '10')");
-        tx.executeSql("INSERT INTO maps (name, latitud, longitud, zoom) VALUES ('Mapa 2', '23.57', '38.44', '10')");
-        tx.executeSql("INSERT INTO markers (title, latitud, longitud, visited, map_id) VALUES ('Lugar 1', '5.57', '10.44', '1', '1')");
+        tx.executeSql("INSERT INTO maps (name, latitud, longitud, zoom) VALUES ('GOOGLE', '37.422476', '-122.08425', '10')");
+        tx.executeSql("INSERT INTO markers (title, latitud, longitud, range, visited, map_id) VALUES ('Lugar 1', '37.422476', '-122.08525', '0.001', '0', '1')");
     });
 }
 
@@ -45,7 +51,19 @@ function fillListView(){
         tx.executeSql('SELECT * FROM maps', [], function (tx, result) {
             for (var i = 0; i < result.rows.length; i++) {
                 var item = result.rows.item(i);
-                var element = $('<li><a href="#" class="ui-btn waves-effect waves-button waves-effect waves-button waves-effect waves-button"><h2>'+item.name+'</h2><p> Latitud: ' + item.latitud + ' Longitud: ' + item.longitud +'</p></a></li>');
+                var element = $('<div data-role="collapsible" data-inset="false" class="ui-collapsible ui-collapsible-themed-content ui-collapsible-collapsed">' +
+                                    '<h4 class="ui-collapsible-heading ui-collapsible-heading-collapsed">' +
+                                        '<a href="#" class="ui-collapsible-heading-toggle ui-btn ui-icon-plus ui-btn-icon-left ui-btn-inherit waves-effect waves-button waves-effect waves-button waves-effect waves-button">' +
+                                            item.name +
+                                            '<span class="ui-collapsible-heading-status"> click to expand contents</span>' +
+                                        '</a>' +
+                                    '</h4>' +
+                                    '<div class="ui-collapsible-content ui-body-inherit ui-collapsible-content-collapsed" aria-hidden="true">' +
+                                        '<ul data-role="listview" class="ui-listview">' +
+                                            '<li><a href="#" class="ui-btn ui-btn-icon-right ui-icon-carat-r waves-effect waves-button waves-effect waves-button waves-effect waves-button">Lugar 1</a></li>' +
+                                        '</ul>' +
+                                    '</div>' +
+                                '</div>');
                 $('#maps-list').append(element);
             }
         });
@@ -98,6 +116,18 @@ function drawMarker(pos){
     map.addMarker({
         position: pos,
         title: "Hello GoogleMap for Cordova!"
+    });
+
+    map.addPolygon({
+        points: [
+            new plugin.google.maps.LatLng(pos.lat+0.001, pos.lng+0.001),
+            new plugin.google.maps.LatLng(pos.lat-0.001, pos.lng+0.001),
+            new plugin.google.maps.LatLng(pos.lat-0.001, pos.lng-0.001),
+            new plugin.google.maps.LatLng(pos.lat+0.001, pos.lng-0.001)
+        ],
+        strokeColor: '#AA00FF',
+        strokeWidth: 5,
+        fillColor: '#880000'
     });
 }
 
