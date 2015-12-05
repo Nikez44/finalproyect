@@ -53,11 +53,11 @@ function fillListView(){
                 var item = result.rows.item(i);
                 var element = $('<div data-role="collapsible" data-inset="false">' +
                                     '<h4>' +
-                                            item.name +
+                                        item.name +
                                     '</h4>' +
-                                        '<ul data-role="listview" class="ui-listview">' +
-                                            '<li><a href="#" class="ui-btn ui-btn-icon-right ui-icon-carat-r waves-effect waves-button waves-effect waves-button waves-effect waves-button">Lugar 1</a></li>' +
-                                        '</ul>' +
+                                    '<ul data-role="listview" class="ui-listview">' +
+                                        '<li><a href="#" class="ui-btn ui-btn-icon-right ui-icon-carat-r waves-effect waves-button waves-effect waves-button waves-effect waves-button">Lugar 1</a></li>' +
+                                    '</ul>' +
                                 '</div>');
                 $('#maps-list').append(element);
                 $('#maps-list').collapsibleset()

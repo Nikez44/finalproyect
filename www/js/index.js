@@ -60,7 +60,7 @@ function fillListView(){
                                     '</ul>' +
                                 '</div>');
                 $('#maps-list').append(element);
-                $('#maps-list').collapsibleset()
+                $('#maps-list').collapsibleset();
             }
         });
     });
