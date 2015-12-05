@@ -69,23 +69,27 @@ function fillListView(){
                                     '<ul data-role="listview" class="ui-listview"></ul>' +
                                 '</div>');
 
-                tx.executeSql('SELECT * FROM markers WHERE map_id = '+ item.id, [], function(tx, resultMarkers){
-                    for(var i = 0; i < resultMarkers.rows.length; i++){
-                        var marker = resultMarkers.rows.item(i);
-                        var markerElement = $('<li><a href="#" class="ui-btn ui-btn-icon-right ui-icon-carat-r waves-effect waves-button waves-effect waves-button waves-effect waves-button">'+ marker.title +'</a></li>');
-                        element.find('ul').first().append(markerElement);
-                    }
-                });
+                getMarkers(item.id, element);
 
-                $('#maps-list').append(element);
-                $('#maps-list').collapsibleset();
+                var mapList = $('#maps-list');
+                mapList.append(element);
+                mapList.collapsibleset();
             }
         });
     });
-
-
 }
 
+function getMarkers(id, element){
+    db.transaction(function (tx) {
+        tx.executeSql('SELECT * FROM markers WHERE map_id = ' + id, [], function (tx, resultMarkers) {
+            for (var j = 0; j < resultMarkers.rows.length; j++) {
+                var marker = resultMarkers.rows.item(j);
+                var markerElement = $('<li><a href="#" class="ui-btn ui-btn-icon-right ui-icon-carat-r waves-effect waves-button waves-effect waves-button waves-effect waves-button">' + marker.title + '</a></li>');
+                element.find('ul').first().append(markerElement);
+            }
+        });
+    });
+}
 
 /**
  * Funciones para la pagina de MAPS
