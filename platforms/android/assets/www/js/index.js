@@ -44,6 +44,22 @@ function createDataBase(){
         tx.executeSql("INSERT INTO maps (name, latitud, longitud, zoom) VALUES ('DF', '37.422476', '-122.08425', '10')");
         tx.executeSql("INSERT INTO maps (name, latitud, longitud, zoom) VALUES ('Barcelona', '37.422476', '-122.08425', '10')");
         tx.executeSql("INSERT INTO maps (name, latitud, longitud, zoom) VALUES ('NY', '37.422476', '-122.08425', '10')");
+
+        tx.executeSql("INSERT INTO maps (name, latitud, longitud, zoom) VALUES ('Yucatan', '3.57', '4.44', '10')");
+        tx.executeSql("INSERT INTO maps (name, latitud, longitud, zoom) VALUES ('DF', '37.422476', '-122.08425', '10')");
+        tx.executeSql("INSERT INTO maps (name, latitud, longitud, zoom) VALUES ('Barcelona', '37.422476', '-122.08425', '10')");
+        tx.executeSql("INSERT INTO maps (name, latitud, longitud, zoom) VALUES ('NY', '37.422476', '-122.08425', '10')");
+
+        tx.executeSql("INSERT INTO maps (name, latitud, longitud, zoom) VALUES ('Yucatan', '3.57', '4.44', '10')");
+        tx.executeSql("INSERT INTO maps (name, latitud, longitud, zoom) VALUES ('DF', '37.422476', '-122.08425', '10')");
+        tx.executeSql("INSERT INTO maps (name, latitud, longitud, zoom) VALUES ('Barcelona', '37.422476', '-122.08425', '10')");
+        tx.executeSql("INSERT INTO maps (name, latitud, longitud, zoom) VALUES ('NY', '37.422476', '-122.08425', '10')");
+
+        tx.executeSql("INSERT INTO maps (name, latitud, longitud, zoom) VALUES ('Yucatan', '3.57', '4.44', '10')");
+        tx.executeSql("INSERT INTO maps (name, latitud, longitud, zoom) VALUES ('DF', '37.422476', '-122.08425', '10')");
+        tx.executeSql("INSERT INTO maps (name, latitud, longitud, zoom) VALUES ('Barcelona', '37.422476', '-122.08425', '10')");
+        tx.executeSql("INSERT INTO maps (name, latitud, longitud, zoom) VALUES ('NY', '37.422476', '-122.08425', '10')");
+
         tx.executeSql("INSERT INTO markers (title, latitud, longitud, range, visited, map_id) VALUES ('Lugar 1', '37.422476', '-122.08525', '0.001', '0', '1')");
         tx.executeSql("INSERT INTO markers (title, latitud, longitud, range, visited, map_id) VALUES ('Lugar 2', '37.422476', '-122.08525', '0.001', '0', '1')");
         tx.executeSql("INSERT INTO markers (title, latitud, longitud, range, visited, map_id) VALUES ('Lugar 3', '37.422476', '-122.08525', '0.001', '0', '1')");
@@ -54,6 +70,30 @@ function createDataBase(){
         tx.executeSql("INSERT INTO markers (title, latitud, longitud, range, visited, map_id) VALUES ('Lugar 8', '37.422476', '-122.08525', '0.001', '0', '4')");
         tx.executeSql("INSERT INTO markers (title, latitud, longitud, range, visited, map_id) VALUES ('Lugar 9', '37.422476', '-122.08525', '0.001', '0', '4')");
         tx.executeSql("INSERT INTO markers (title, latitud, longitud, range, visited, map_id) VALUES ('Lugar 10', '37.422476', '-122.08525', '0.001', '0', '4')");
+
+        tx.executeSql("INSERT INTO markers (title, latitud, longitud, range, visited, map_id) VALUES ('Lugar 1', '37.422476', '-122.08525', '0.001', '0', '5')");
+        tx.executeSql("INSERT INTO markers (title, latitud, longitud, range, visited, map_id) VALUES ('Lugar 2', '37.422476', '-122.08525', '0.001', '0', '5')");
+        tx.executeSql("INSERT INTO markers (title, latitud, longitud, range, visited, map_id) VALUES ('Lugar 3', '37.422476', '-122.08525', '0.001', '0', '6')");
+        tx.executeSql("INSERT INTO markers (title, latitud, longitud, range, visited, map_id) VALUES ('Lugar 4', '37.422476', '-122.08525', '0.001', '0', '6')");
+        tx.executeSql("INSERT INTO markers (title, latitud, longitud, range, visited, map_id) VALUES ('Lugar 5', '37.422476', '-122.08525', '0.001', '0', '7')");
+        tx.executeSql("INSERT INTO markers (title, latitud, longitud, range, visited, map_id) VALUES ('Lugar 6', '37.422476', '-122.08525', '0.001', '0', '7')");
+        tx.executeSql("INSERT INTO markers (title, latitud, longitud, range, visited, map_id) VALUES ('Lugar 7', '37.422476', '-122.08525', '0.001', '0', '8')");
+        tx.executeSql("INSERT INTO markers (title, latitud, longitud, range, visited, map_id) VALUES ('Lugar 8', '37.422476', '-122.08525', '0.001', '0', '8')");
+        tx.executeSql("INSERT INTO markers (title, latitud, longitud, range, visited, map_id) VALUES ('Lugar 9', '37.422476', '-122.08525', '0.001', '0', '9')");
+        tx.executeSql("INSERT INTO markers (title, latitud, longitud, range, visited, map_id) VALUES ('Lugar 10', '37.422476', '-122.08525', '0.001', '0', '9')");
+
+        tx.executeSql("INSERT INTO markers (title, latitud, longitud, range, visited, map_id) VALUES ('Lugar 1', '37.422476', '-122.08525', '0.001', '0', '10')");
+        tx.executeSql("INSERT INTO markers (title, latitud, longitud, range, visited, map_id) VALUES ('Lugar 2', '37.422476', '-122.08525', '0.001', '0', '10')");
+        tx.executeSql("INSERT INTO markers (title, latitud, longitud, range, visited, map_id) VALUES ('Lugar 3', '37.422476', '-122.08525', '0.001', '0', '11')");
+        tx.executeSql("INSERT INTO markers (title, latitud, longitud, range, visited, map_id) VALUES ('Lugar 4', '37.422476', '-122.08525', '0.001', '0', '11')");
+        tx.executeSql("INSERT INTO markers (title, latitud, longitud, range, visited, map_id) VALUES ('Lugar 5', '37.422476', '-122.08525', '0.001', '0', '12')");
+        tx.executeSql("INSERT INTO markers (title, latitud, longitud, range, visited, map_id) VALUES ('Lugar 6', '37.422476', '-122.08525', '0.001', '0', '12')");
+        tx.executeSql("INSERT INTO markers (title, latitud, longitud, range, visited, map_id) VALUES ('Lugar 7', '37.422476', '-122.08525', '0.001', '0', '13')");
+        tx.executeSql("INSERT INTO markers (title, latitud, longitud, range, visited, map_id) VALUES ('Lugar 8', '37.422476', '-122.08525', '0.001', '0', '14')");
+        tx.executeSql("INSERT INTO markers (title, latitud, longitud, range, visited, map_id) VALUES ('Lugar 9', '37.422476', '-122.08525', '0.001', '0', '15')");
+        tx.executeSql("INSERT INTO markers (title, latitud, longitud, range, visited, map_id) VALUES ('Lugar 10', '37.422476', '-122.08525', '0.001', '0', '16')");
+
+
     });
 }
 
