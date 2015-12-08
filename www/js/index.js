@@ -147,6 +147,32 @@ function getMarkers(id, element){
  */
 function initPageMaps(){
     navigator.geolocation.getCurrentPosition(drawMap, onErrorGeolocation);
+    searchButtonListener();
+}
+
+function searchButtonListener(){
+    $('#searchBtn').on('click', function(e){
+
+        var request = {
+            'address': $("#query").val()
+        };
+
+        plugin.google.maps.Geocoder.geocode(request, function(results) {
+            if (results.length) {
+                var result = results[0];
+                var position = result.position;
+
+                map.animateCamera({
+                    'target': position,
+                    'zoom': 15
+                });
+
+            } else {
+                alert("Not found");
+            }
+        });
+
+    });
 }
 
 function drawMap(position){

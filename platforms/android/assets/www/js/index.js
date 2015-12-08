@@ -11,6 +11,7 @@ function init(){
 
     createDataBase();
     fillListView();
+	setUserData();
     $(document).on("pageshow", '#maps', initPageMaps);
 }
 
@@ -19,7 +20,8 @@ function createDataBase(){
 
     db.transaction(function (tx) {
         tx.executeSql('DROP TABLE IF EXISTS maps');
-        tx.executeSql('DROP TABLE IF EXISTS Markers');
+        tx.executeSql('DROP TABLE IF EXISTS markers');
+		tx.executeSql('DROP TABLE IF EXISTS users');
 
         tx.executeSql('CREATE TABLE IF NOT EXISTS maps (' +
             'id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, ' +
@@ -28,6 +30,13 @@ function createDataBase(){
             'longitud DOUBLE,' +
             'zoom INTEGER' +
             ');');
+
+		tx.executeSql('CREATE TABLE IF NOT EXISTS users (' +
+			'id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, ' +
+			'name VARCHAR(100), ' +
+			'email VARCHAR(100),' +
+			'nationality VARCHAR(45)' +
+			');');
 
         tx.executeSql('CREATE TABLE IF NOT EXISTS markers (' +
             'id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, ' +
@@ -39,6 +48,7 @@ function createDataBase(){
             'map_id INTEGER,' +
             'FOREIGN KEY(map_id) REFERENCES maps(id)' +
             ');');
+
 
         tx.executeSql("INSERT INTO maps (name, latitud, longitud, zoom) VALUES ('Yucatan', '3.57', '4.44', '10')");
         tx.executeSql("INSERT INTO maps (name, latitud, longitud, zoom) VALUES ('DF', '37.422476', '-122.08425', '10')");
@@ -93,8 +103,9 @@ function createDataBase(){
         tx.executeSql("INSERT INTO markers (title, latitud, longitud, range, visited, map_id) VALUES ('Lugar 9', '37.422476', '-122.08525', '0.001', '0', '15')");
         tx.executeSql("INSERT INTO markers (title, latitud, longitud, range, visited, map_id) VALUES ('Lugar 10', '37.422476', '-122.08525', '0.001', '0', '16')");
 
+		tx.executeSql("INSERT INTO users (name, email, nationality) VALUES ('Joshua', 'josshft@gmail.com', 'México')");
 
-    });
+	});
 }
 
 function fillListView(){
@@ -136,6 +147,32 @@ function getMarkers(id, element){
  */
 function initPageMaps(){
     navigator.geolocation.getCurrentPosition(drawMap, onErrorGeolocation);
+    searchButtonListener();
+}
+
+function searchButtonListener(){
+    $('#searchBtn').on('click', function(e){
+
+        var request = {
+            'address': $("#query").val()
+        };
+
+        plugin.google.maps.Geocoder.geocode(request, function(results) {
+            if (results.length) {
+                var result = results[0];
+                var position = result.position;
+
+                map.animateCamera({
+                    'target': position,
+                    'zoom': 15
+                });
+
+            } else {
+                alert("Not found");
+            }
+        });
+
+    });
 }
 
 function drawMap(position){
@@ -187,6 +224,23 @@ function drawMarker(pos){
         strokeWidth: 5,
         fillColor: '#880000'
     });
+}
+
+function setUserData () {
+	db.transaction(function (tx) {
+		tx.executeSql('SELECT * FROM users', [], function (tx, result) {
+			for (var i = 0; i < result.rows.length; i++) {
+				var item = result.rows.item(i);
+				var user = $('<div class = "box profile-text"><strong>'+item.name+'</strong>' +
+					'<span class="subline">'+item.email+'</span>');
+				var nationality = item.nationality;
+			}
+			var divUser = $('#divUser');
+			var nationDiv = $('#nationality');
+			divUser.append(user);
+			nationDiv.append(nationality);
+		});
+	});
 }
 
 function onErrorGeolocation(error){
