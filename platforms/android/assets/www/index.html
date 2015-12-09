@@ -20,6 +20,7 @@
     <script src="vendor/nativedroid2/nd2settings.js"></script>
     <script type="text/javascript" src="cordova.js"></script>
     <script src="js/index.js"></script>
+    <script src="js/markView.js"></script>
 </head>
 <body>
 
@@ -59,6 +60,25 @@
 
         <div role="main" class="ui-content" id="map"></div>
 
+    </section>
+
+    <section data-role="page" id="ImagesMarkers">
+        <header data-role="header" data-position="fixed" class="wow fadeInDown" data-wow-delay="0.2s">
+            <a href="#bottomsheet" class="ui-btn ui-btn-right wow fadeIn" data-wow-delay='1.2s'><i class="zmdi zmdi-more-vert"></i></a>
+            <a href="#leftpanel" class="ui-btn ui-btn-left wow fadeIn" data-wow-delay='0.8s'><i class="zmdi zmdi-menu"></i></a>
+            <h1 class="wow fadeIn" data-wow-delay='0.4s'>Maps</h1>
+        </header>
+
+        <div role="main" class="ui-content" id="MarkerView">
+            <div id="checkMark">
+                <legend>Lugar</legend>
+                <input type="checkbox" name="Mark" id="Mark">
+                <label for="Mark">Visitado</label>
+            </div>
+
+            <button onclick="getImage();">click</button>
+            <div id="gallery"></div>
+        </div>
     </section>
 
 </body>
