@@ -6,15 +6,28 @@ document.addEventListener("deviceready", init, false);
 var CENTER;
 var map;
 var db;
+var newPlacePos;
+var newPlaceName;
+var newPlaceRange;
+var UNITS = 0.00009; //10 metros
 
 function init(){
-
     createDataBase();
     fillListView();
 	setUserData();
     initCamera();
     $(document).on("pageshow", '#maps', initPageMaps);
     $(document).on("pageshow", '#ImagesMarkers', fillMarkersView);
+
+    //Listener Buttons Maps
+    searchButtonListener();
+    saveBtnPopupListener();
+    cancelBtnPopupListener();
+    $( "#popupDialog" ).bind({
+        popupafterclose: function(event, ui) {
+            map.setClickable(true);
+        }
+    });
 }
 
 function createDataBase(){
@@ -143,6 +156,7 @@ function getMarkers(id, element){
         tx.executeSql('SELECT * FROM markers WHERE map_id = ' + id, [], function (tx, resultMarkers) {
             for (var j = 0; j < resultMarkers.rows.length; j++) {
                 var marker = resultMarkers.rows.item(j);
+                var markerElement = $('<li data-id="'+marker.id+'"><a href="#" class="ui-btn ui-btn-icon-right ui-icon-carat-r waves-effect waves-button waves-effect waves-button waves-effect waves-button">' + marker.title + '</a></li>');
                 var markerElement = $('<li><a href="#" class="marker ui-btn ui-btn-icon-right ui-icon-carat-r waves-effect waves-button waves-effect waves-button waves-effect waves-button">' + marker.title + '</a></li>');
                 element.find('ul').first().append(markerElement);
             }
@@ -155,6 +169,48 @@ function getMarkers(id, element){
  */
 function initPageMaps(){
     navigator.geolocation.getCurrentPosition(drawMap, onErrorGeolocation);
+}
+
+function saveBtnPopupListener(){
+    $('#save-btn-popup').on('click', function(e){
+        e.preventDefault();
+        newPlaceName = $('#marker-name').val();
+        newPlaceRange = $('#marker-range').val();
+        drawMarker();
+        $('#popupDialog').popup("close");
+    });
+}
+
+function cancelBtnPopupListener(){
+    $('#cancel-btn-popup').on('click', function(e){
+        e.preventDefault();
+        $('#popupDialog').popup("close");
+    });
+}
+
+function searchButtonListener(){
+    $('#searchBtn').on('click', function(e){
+
+        var request = {
+            address: $("#query").val()
+        };
+
+        plugin.google.maps.Geocoder.geocode(request, function(results) {
+            if (results.length) {
+                var result = results[0];
+                var position = result.position;
+
+                map.animateCamera({
+                    target: position,
+                    zoom: 15
+                });
+
+            } else {
+                alert("Not found");
+            }
+        });
+
+    });
 }
 
 function drawMap(position){
@@ -176,7 +232,9 @@ function drawMap(position){
 
     map.on(plugin.google.maps.event.MAP_LONG_CLICK, function(latLng) {
         //alert("Map was long clicked.\n" + latLng.toUrlValue());
-        drawMarker(latLng);
+        newPlacePos = latLng;
+        map.setClickable(false);
+        $('#popupDialog').popup("open");
     });
 
 }
@@ -184,23 +242,23 @@ function drawMap(position){
 function initMarker(){
     map.addMarker({
         position: CENTER,
-        title: "Hello GoogleMap for Cordova!",
+        title: "Ubicación Actual",
         icon: 'green'
     });
 }
 
-function drawMarker(pos){
+function drawMarker(){
     map.addMarker({
-        position: pos,
-        title: "Hello GoogleMap for Cordova!"
+        position: newPlacePos,
+        title: newPlaceName
     });
 
     map.addPolygon({
         points: [
-            new plugin.google.maps.LatLng(pos.lat+0.001, pos.lng+0.001),
-            new plugin.google.maps.LatLng(pos.lat-0.001, pos.lng+0.001),
-            new plugin.google.maps.LatLng(pos.lat-0.001, pos.lng-0.001),
-            new plugin.google.maps.LatLng(pos.lat+0.001, pos.lng-0.001)
+            new plugin.google.maps.LatLng(newPlacePos.lat+(UNITS*newPlaceRange), newPlacePos.lng+(UNITS*newPlaceRange)),
+            new plugin.google.maps.LatLng(newPlacePos.lat-(UNITS*newPlaceRange), newPlacePos.lng+(UNITS*newPlaceRange)),
+            new plugin.google.maps.LatLng(newPlacePos.lat-(UNITS*newPlaceRange), newPlacePos.lng-(UNITS*newPlaceRange)),
+            new plugin.google.maps.LatLng(newPlacePos.lat+(UNITS*newPlaceRange), newPlacePos.lng-(UNITS*newPlaceRange))
         ],
         strokeColor: '#AA00FF',
         strokeWidth: 5,

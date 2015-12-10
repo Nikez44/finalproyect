@@ -37,12 +37,7 @@
         <section role="main" class="ui-content wow fadeIn" data-inset="false" data-wow-delay="0.2s">
 
             <section id="maps-list"></section>
-
             <a href="#maps" class="ui-btn ui-btn-inline ui-btn-fab ui-btn-fab-bottom ui-btn-raised clr-primary"><i class='zmdi zmdi-plus zmd-2x'></i></a>
-            <!--<a href="#maps" data-rel="popup" data-position-to="window" data-transition="pop"
-               class="ui-btn ui-btn-inline ui-btn-fab ui-btn-fab-bottom ui-btn-raised clr-primary">
-                <i class='zmdi zmdi-plus zmd-2x'></i>
-            </a>-->
 
         </section>
 
@@ -60,7 +55,30 @@
             <h1 class="wow fadeIn" data-wow-delay='0.4s'>Maps</h1>
         </header>
 
-        <div role="main" class="ui-content" id="map"></div>
+        <div role="main" class="ui-content" id="map">
+            <div id="query-div">
+            <input type="text" id="query" value="" data-clear-btn="true" placeholder="Buscar...">
+            </div>
+            <button class="ui-btn ui-mini ui-btn-inline" id="searchBtn"><i class='zmdi zmdi-search'></i></button>
+            <a href="#" class="ui-btn ui-btn-inline ui-btn-fab ui-btn-fab-bottom ui-btn-raised clr-primary"><i class='zmdi zmdi-plus zmd-2x'></i></a>
+        </div>
+
+        <section data-role="popup" id="popupDialog">
+            <div data-role="header">
+                <h1 class='nd-title'>Nuevo Lugar</h1>
+            </div>
+            <div data-role="content">
+
+                <label for="marker-name">Nombre:</label>
+                <input type="text" name="marker-name" id="marker-name" data-clear-btn="true" placeholder="Nombre del lugar">
+
+                <label for="marker-range">Alcance (10m<sup>2</sup>):</label>
+                <input type="range" name="marker-range" id="marker-range" value="1" min="1" max="100" data-highlight="true">
+
+                <a href="#" id="save-btn-popup" data-role="button" class="ui-btn ui-btn-primary"><i class='zmdi zmdi-check'></i>Aceptar</a>
+                <a href="#" id="cancel-btn-popup" data-role="button" class="ui-btn ui-btn-primary"><i class='zmdi zmdi-cancel'></i>Cancelar</a>
+            </div>
+        </section>
 
     </section>
 

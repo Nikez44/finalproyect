@@ -6,3 +6,11 @@
     width: 100px;
     height: 100px;
 }
+#query-div{
+    width: 89%;
+    float: left;
+}
+
+#searchBtn{
+    float: left;
+}
