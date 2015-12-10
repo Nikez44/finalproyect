@@ -287,6 +287,7 @@ function onErrorGeolocation(error){
 }
 
 function fillMarkersView(){
+    setMarkerName();
     $('#gallery').empty();
     db.transaction(function (tx) {
         tx.executeSql('SELECT * FROM images where mark_id = "'+ getIdMarker()+'"', [], function (tx, result) {
@@ -302,9 +303,38 @@ function fillMarkersView(){
     });
 }
 
+function setMarkerName(){
+    db.transaction(function (tx) {
+        tx.executeSql('SELECT * FROM markers where id = "'+ getIdMarker()+'"', [], function (tx, result) {
+            var item = result.rows.item(0);
+            $('#name-marker').text(item.title);
+            if(item.visited ===1){
+                $('#Mark').prop('checked',true).checkboxradio('refresh');
+            }else{
+                $('#Mark').prop('checked',false).checkboxradio('refresh');
+            }
+
+        });
+    });
+}
+
 function saveUriPhoto(idmarker,uri){
     db.transaction(function (tx) {
         tx.executeSql("INSERT INTO images (image_uri, mark_id) VALUES ('"+uri+"', '"+idmarker+"')");
     });
 }
 
+function onCheck(){
+    if(!$('#Mark').is('checked')){
+        $('#Mark').prop('checked',true).checkboxradio('refresh');
+        db.transaction(function (tx) {
+            tx.executeSql('UPDATE markers SET visited ='+1+' WHERE id = "' + getIdMarker()+ '"');
+        });
+    }else{
+        $('#Mark').prop('checked',false).checkboxradio('refresh');
+    }
+}
+
+function isOnRange(){
+
+}

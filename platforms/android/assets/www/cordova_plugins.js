@@ -29,6 +29,20 @@ module.exports = [
         ]
     },
     {
+        "file": "plugins/cordova-plugin-geofence/www/TransitionType.js",
+        "id": "cordova-plugin-geofence.TransitionType",
+        "clobbers": [
+            "TransitionType"
+        ]
+    },
+    {
+        "file": "plugins/cordova-plugin-geofence/www/geofence.js",
+        "id": "cordova-plugin-geofence.geofence",
+        "clobbers": [
+            "geofence"
+        ]
+    },
+    {
         "file": "plugins/cordova-plugin-whitelist/whitelist.js",
         "id": "cordova-plugin-whitelist.whitelist",
         "runs": true
@@ -39,15 +53,22 @@ module.exports = [
         "clobbers": [
             "plugin.google.maps"
         ]
+    },
+    {
+        "file": "plugins/es6-promise-plugin/www/promise.js",
+        "id": "es6-promise-plugin.Promise",
+        "runs": true
     }
 ];
 module.exports.metadata = 
 // TOP OF METADATA
 {
     "cordova-plugin-camera": "1.2.0",
+    "cordova-plugin-geofence": "0.5.0",
     "cordova-plugin-geolocation": "1.0.1",
     "cordova-plugin-whitelist": "1.2.0",
-    "plugin.google.maps": "1.3.4"
+    "plugin.google.maps": "1.3.4",
+    "es6-promise-plugin": "3.0.2"
 }
 // BOTTOM OF METADATA
 });
