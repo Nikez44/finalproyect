@@ -11,7 +11,10 @@ function init(){
 
     createDataBase();
     fillListView();
+	setUserData();
+    initCamera();
     $(document).on("pageshow", '#maps', initPageMaps);
+    $(document).on("pageshow", '#ImagesMarkers', fillMarkersView);
 }
 
 function createDataBase(){
@@ -19,7 +22,8 @@ function createDataBase(){
 
     db.transaction(function (tx) {
         tx.executeSql('DROP TABLE IF EXISTS maps');
-        tx.executeSql('DROP TABLE IF EXISTS Markers');
+        tx.executeSql('DROP TABLE IF EXISTS markers');
+		tx.executeSql('DROP TABLE IF EXISTS users');
 
         tx.executeSql('CREATE TABLE IF NOT EXISTS maps (' +
             'id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, ' +
@@ -28,6 +32,13 @@ function createDataBase(){
             'longitud DOUBLE,' +
             'zoom INTEGER' +
             ');');
+
+		tx.executeSql('CREATE TABLE IF NOT EXISTS users (' +
+			'id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, ' +
+			'name VARCHAR(100), ' +
+			'email VARCHAR(100),' +
+			'nationality VARCHAR(45)' +
+			');');
 
         tx.executeSql('CREATE TABLE IF NOT EXISTS markers (' +
             'id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, ' +
@@ -38,6 +49,13 @@ function createDataBase(){
             'visited TINYINT(1),' +
             'map_id INTEGER,' +
             'FOREIGN KEY(map_id) REFERENCES maps(id)' +
+            ');');
+
+        tx.executeSql('CREATE TABLE IF NOT EXISTS images (' +
+            'id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, ' +
+            'image_uri VARCHAR(100), ' +
+            'mark_id INTEGER,' +
+            'FOREIGN KEY(mark_id) REFERENCES markers(id)' +
             ');');
 
         tx.executeSql("INSERT INTO maps (name, latitud, longitud, zoom) VALUES ('Yucatan', '3.57', '4.44', '10')");
@@ -93,8 +111,9 @@ function createDataBase(){
         tx.executeSql("INSERT INTO markers (title, latitud, longitud, range, visited, map_id) VALUES ('Lugar 9', '37.422476', '-122.08525', '0.001', '0', '15')");
         tx.executeSql("INSERT INTO markers (title, latitud, longitud, range, visited, map_id) VALUES ('Lugar 10', '37.422476', '-122.08525', '0.001', '0', '16')");
 
+		tx.executeSql("INSERT INTO users (name, email, nationality) VALUES ('Joshua', 'josshft@gmail.com', 'México')");
 
-    });
+	});
 }
 
 function fillListView(){
@@ -124,7 +143,7 @@ function getMarkers(id, element){
         tx.executeSql('SELECT * FROM markers WHERE map_id = ' + id, [], function (tx, resultMarkers) {
             for (var j = 0; j < resultMarkers.rows.length; j++) {
                 var marker = resultMarkers.rows.item(j);
-                var markerElement = $('<li><a href="#" class="ui-btn ui-btn-icon-right ui-icon-carat-r waves-effect waves-button waves-effect waves-button waves-effect waves-button">' + marker.title + '</a></li>');
+                var markerElement = $('<li><a href="#" class="marker ui-btn ui-btn-icon-right ui-icon-carat-r waves-effect waves-button waves-effect waves-button waves-effect waves-button">' + marker.title + '</a></li>');
                 element.find('ul').first().append(markerElement);
             }
         });
@@ -189,8 +208,45 @@ function drawMarker(pos){
     });
 }
 
+function setUserData () {
+	db.transaction(function (tx) {
+		tx.executeSql('SELECT * FROM users', [], function (tx, result) {
+			for (var i = 0; i < result.rows.length; i++) {
+				var item = result.rows.item(i);
+				var user = $('<div class = "box profile-text"><strong>'+item.name+'</strong>' +
+					'<span class="subline">'+item.email+'</span>');
+				var nationality = item.nationality;
+			}
+			var divUser = $('#divUser');
+			var nationDiv = $('#nationality');
+			divUser.append(user);
+			nationDiv.append(nationality);
+		});
+	});
+}
+
 function onErrorGeolocation(error){
     alert('code: ' + error.code + '\n' +'message: ' + error.message + '\n');
 }
 
+function fillMarkersView(){
+    db.transaction(function (tx) {
+        tx.executeSql('SELECT * FROM images', [], function (tx, result) {
+            for (var i = 0; i < result.rows.length; i++) {
+                var item = result.rows.item(i);
+
+                var element = $('<img class="img_gallery" src="'+item.image_uri +'">');
+
+                var mapList = $('#gallery');
+                mapList.append(element);
+            }
+        });
+    });
+}
+
+function saveUriPhoto(idmarker,uri){
+    db.transaction(function (tx) {
+        tx.executeSql("INSERT INTO images (image_uri, mark_id) VALUES ('"+uri+"', '"+idmarker+"')");
+    });
+}
 

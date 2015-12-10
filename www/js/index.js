@@ -12,7 +12,9 @@ function init(){
     createDataBase();
     fillListView();
 	setUserData();
+    initCamera();
     $(document).on("pageshow", '#maps', initPageMaps);
+    $(document).on("pageshow", '#ImagesMarkers', fillMarkersView);
 }
 
 function createDataBase(){
@@ -49,6 +51,12 @@ function createDataBase(){
             'FOREIGN KEY(map_id) REFERENCES maps(id)' +
             ');');
 
+        tx.executeSql('CREATE TABLE IF NOT EXISTS images (' +
+            'id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, ' +
+            'image_uri VARCHAR(100), ' +
+            'mark_id INTEGER,' +
+            'FOREIGN KEY(mark_id) REFERENCES markers(id)' +
+            ');');
 
         tx.executeSql("INSERT INTO maps (name, latitud, longitud, zoom) VALUES ('Yucatan', '3.57', '4.44', '10')");
         tx.executeSql("INSERT INTO maps (name, latitud, longitud, zoom) VALUES ('DF', '37.422476', '-122.08425', '10')");
@@ -135,7 +143,7 @@ function getMarkers(id, element){
         tx.executeSql('SELECT * FROM markers WHERE map_id = ' + id, [], function (tx, resultMarkers) {
             for (var j = 0; j < resultMarkers.rows.length; j++) {
                 var marker = resultMarkers.rows.item(j);
-                var markerElement = $('<li><a href="#" class="ui-btn ui-btn-icon-right ui-icon-carat-r waves-effect waves-button waves-effect waves-button waves-effect waves-button">' + marker.title + '</a></li>');
+                var markerElement = $('<li><a href="#" class="marker ui-btn ui-btn-icon-right ui-icon-carat-r waves-effect waves-button waves-effect waves-button waves-effect waves-button">' + marker.title + '</a></li>');
                 element.find('ul').first().append(markerElement);
             }
         });
@@ -221,4 +229,24 @@ function onErrorGeolocation(error){
     alert('code: ' + error.code + '\n' +'message: ' + error.message + '\n');
 }
 
+function fillMarkersView(){
+    db.transaction(function (tx) {
+        tx.executeSql('SELECT * FROM images', [], function (tx, result) {
+            for (var i = 0; i < result.rows.length; i++) {
+                var item = result.rows.item(i);
+
+                var element = $('<img class="img_gallery" src="'+item.image_uri +'">');
+
+                var mapList = $('#gallery');
+                mapList.append(element);
+            }
+        });
+    });
+}
+
+function saveUriPhoto(idmarker,uri){
+    db.transaction(function (tx) {
+        tx.executeSql("INSERT INTO images (image_uri, mark_id) VALUES ('"+uri+"', '"+idmarker+"')");
+    });
+}
 

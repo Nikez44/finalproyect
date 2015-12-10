@@ -18,7 +18,7 @@
                         },
                         {
                             "xml": "<uses-permission android:name=\"android.permission.WRITE_EXTERNAL_STORAGE\" />",
-                            "count": 1
+                            "count": 2
                         }
                     ],
                     "/manifest/application": [
@@ -85,6 +85,20 @@
                         {
                             "xml": "<feature name=\"Camera\"><param name=\"android-package\" value=\"org.apache.cordova.camera.CameraLauncher\" /></feature>",
                             "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"File\"><param name=\"android-package\" value=\"org.apache.cordova.file.FileUtils\" /><param name=\"onload\" value=\"true\" /></feature>",
+                            "count": 1
+                        }
+                    ]
+                }
+            },
+            "config.xml": {
+                "parents": {
+                    "/*": [
+                        {
+                            "xml": "<preference name=\"AndroidPersistentFileLocation\" value=\"Internal\" />",
+                            "count": 1
                         }
                     ]
                 }
@@ -103,6 +117,9 @@
             "PACKAGE_NAME": "com.example.finalproyect"
         },
         "cordova-plugin-camera": {
+            "PACKAGE_NAME": "com.example.finalproyect"
+        },
+        "cordova-plugin-file": {
             "PACKAGE_NAME": "com.example.finalproyect"
         }
     },
