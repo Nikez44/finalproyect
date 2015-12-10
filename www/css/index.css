@@ -12,3 +12,8 @@
 #searchBtn{
     float: left;
 }
+
+.img_gallery{
+    width: 80px;
+    height: 80px;
+}
