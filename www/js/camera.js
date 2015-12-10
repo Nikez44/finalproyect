@@ -17,7 +17,7 @@ function onPhotoDataSuccess(imageData) {
     saveUriPhoto(getIdMarker(), imageData);
     var element = $('#gallery');
 
-    element.append("<img class='img_gallery' src='"+imageData+"'>");
+    element.append("<img onclick='openResourceFile()' class='img_gallery' src='"+imageData+"'>");
 }
 
 // Called when a photo is successfully retrieved

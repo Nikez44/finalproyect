@@ -287,12 +287,13 @@ function onErrorGeolocation(error){
 }
 
 function fillMarkersView(){
+    $('#gallery').empty();
     db.transaction(function (tx) {
-        tx.executeSql('SELECT * FROM images', [], function (tx, result) {
+        tx.executeSql('SELECT * FROM images where mark_id = "'+ getIdMarker()+'"', [], function (tx, result) {
             for (var i = 0; i < result.rows.length; i++) {
                 var item = result.rows.item(i);
 
-                var element = $('<img class="img_gallery" src="'+item.image_uri +'">');
+                var element = $('<img onclick="openResourceFile()" class="img_gallery" src="'+item.image_uri +'">');
 
                 var mapList = $('#gallery');
                 mapList.append(element);
