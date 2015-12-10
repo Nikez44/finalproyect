@@ -16,7 +16,6 @@ function init(){
     fillListView();
 	setUserData();
     initCamera();
-	setUserData();
     $(document).on("pageshow", '#maps', initPageMaps);
     $(document).on("pageshow", '#ImagesMarkers', fillMarkersView);
 
@@ -71,7 +70,6 @@ function createDataBase(){
             'mark_id INTEGER,' +
             'FOREIGN KEY(mark_id) REFERENCES markers(id)' +
             ');');
-
 
         tx.executeSql("INSERT INTO maps (name, latitud, longitud, zoom) VALUES ('Yucatan', '3.57', '4.44', '10')");
         tx.executeSql("INSERT INTO maps (name, latitud, longitud, zoom) VALUES ('DF', '37.422476', '-122.08425', '10')");
@@ -158,8 +156,7 @@ function getMarkers(id, element){
         tx.executeSql('SELECT * FROM markers WHERE map_id = ' + id, [], function (tx, resultMarkers) {
             for (var j = 0; j < resultMarkers.rows.length; j++) {
                 var marker = resultMarkers.rows.item(j);
-                var markerElement = $('<li data-id="'+marker.id+'"><a href="#" class="ui-btn ui-btn-icon-right ui-icon-carat-r waves-effect waves-button waves-effect waves-button waves-effect waves-button">' + marker.title + '</a></li>');
-                var markerElement = $('<li><a href="#" class="marker ui-btn ui-btn-icon-right ui-icon-carat-r waves-effect waves-button waves-effect waves-button waves-effect waves-button">' + marker.title + '</a></li>');
+                var markerElement = $('<li><a href="#" data-id="'+marker.id+'" class="marker ui-btn ui-btn-icon-right ui-icon-carat-r waves-effect waves-button waves-effect waves-button waves-effect waves-button">' + marker.title + '</a></li>');
                 element.find('ul').first().append(markerElement);
             }
         });

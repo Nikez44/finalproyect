@@ -1,4 +1,4 @@
-Cordova GoogleMaps plugin <br>for iOS and Android
+Cordova GoogleMaps plugin for iOS and Android
 ==========================
 This plugin is a thin wrapper for [Google Maps Android SDK v2](https://developers.google.com/maps/documentation/android/) and [Google Maps SDK for iOS](https://developers.google.com/maps/documentation/ios/).
 Both [PhoneGap](http://phonegap.com/) and [Apache Cordova](http://cordova.apache.org/) are supported.
@@ -7,9 +7,42 @@ Both [PhoneGap](http://phonegap.com/) and [Apache Cordova](http://cordova.apache
 Join our online chat at<br> 
 [![Gitter](https://badges.gitter.im/cordova-plugin-googlemaps.svg)](https://gitter.im/nightstomp/cordova-plugin-googlemaps)
 
-###Update status
 
-**v.1.3.4 - 15/10/2015**
+###Donation
+Please consider to make a small donation. We spent many hours to make this a great plugin, we even pay other developers to contribute new functions. In order to keep up the motivation, we ask for your help, too. Thanks!
+
+[![img](https://www.paypalobjects.com/webstatic/en_US/btn/btn_donate_cc_147x47.png)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=LLCBVUA7TQ8SU)
+
+Before I release the clustering feature, I want to raise a funding of 1000$. I will donate some of the funded money to @limeuwe for donating the code and to my developer for the Android part.
+
+**Currently funded**: 50 $
+
+###Quick install
+
+**Plugin is finally available on npm**<br>
+Before you install, make sure you've read the [instructions](https://github.com/phonegap-googlemaps-plugin/cordova-plugin-googlemaps/wiki/Installation)
+
+*npm (current stable 1.3.6)*
+```bash
+$> cordova plugin add cordova-plugin-googlemaps --variable API_KEY_FOR_ANDROID="YOUR_ANDROID_API_KEY_IS_HERE" --variable API_KEY_FOR_IOS="YOUR_IOS_API_KEY_IS_HERE"
+```
+
+*Github (current master, potentially unstable)*
+```bash
+$> cordova plugin add https://github.com/phonegap-googlemaps-plugin/cordova-plugin-googlemaps --variable API_KEY_FOR_ANDROID="YOUR_ANDROID_API_KEY_IS_HERE" --variable API_KEY_FOR_IOS="YOUR_IOS_API_KEY_IS_HERE"
+```
+
+###Last release information
+
+**v.1.3.6 - 07/12/2015**
+- Fixed some small bugs
+- Updated Google Maps SDK for iOS to 1.11.0
+ - Will fix some bugs on iOS 9
+ - with BITCODE support
+ - fixed blank map problems
+
+
+**v.1.3.4 - 10/15/2015**
 
 - Updated Google Maps SDK for iOS to 1.10.4
  - Will fix some bugs on iOS 9
@@ -54,6 +87,7 @@ Check out the [release notes](https://github.com/wf9a5m75/phonegap-googlemaps-pl
     * [Tutorial for Windows](https://github.com/wf9a5m75/phonegap-googlemaps-plugin/wiki/Tutorial-for-Windows)
     * [Tutorial for Mac/Linux](https://github.com/wf9a5m75/phonegap-googlemaps-plugin/wiki/Tutorial-for-Mac)
     * [PhoneGap Usage](https://github.com/wf9a5m75/phonegap-googlemaps-plugin/wiki/Phonegap-Usage)
+    * [Tutorial for Crosswalk](https://github.com/phonegap-googlemaps-plugin/cordova-plugin-googlemaps/wiki/Tutorial-for-CrossWalk-Webview-Plugin-%28Android%29)
     * [Tutorial for Monaca (Cloud building service)](https://github.com/wf9a5m75/phonegap-googlemaps-plugin/wiki/Tutorial-for-Monaca)
   * Upgrade
     * Just re-install this plugin
@@ -140,7 +174,7 @@ Check out the [release notes](https://github.com/wf9a5m75/phonegap-googlemaps-pl
 -----
 
 ##Crosswalk
-If you want to use crosswalk, just follow this easy documentation. 
+If you want to use crosswalk (highly recommended), just follow this easy documentation. 
 [Install Plugin with Crosswalk](https://github.com/wf9a5m75/phonegap-googlemaps-plugin/wiki/Tutorial-for-CrossWalk-Webview-Plugin-%28Android%29)
 
 

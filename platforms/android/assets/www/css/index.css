@@ -2,6 +2,10 @@
 #maps { height: 100%; margin: 0; padding: 0; }
 #map { height: 100%; }
 
+.img_gallery{
+    width: 100px;
+    height: 100px;
+}
 #query-div{
     width: 89%;
     float: left;
