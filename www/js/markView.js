@@ -22,6 +22,19 @@ function openImage(){
     popup.popup("open");
 }
 
+function selectCamera(){
+    navigator.notification.confirm("¿Que desea hacer?", function(e){
+        switch(e) {
+            case 1:
+                capturePhoto();
+                break;
+            case 2:
+                captureVideo();
+                break;
+        }
+    }, "Confirma seleccion", ["Foto", "Video"]);
+}
+
 $(document).on("click",".marker", redirectToViewMarker);
 
 $(document).on("click",".img_gallery", openImage);
