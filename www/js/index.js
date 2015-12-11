@@ -344,11 +344,21 @@ function drawMarker(){
     });
 }
 
-var userId;
+var userId = 1;
 var previusName;
 function setUserData () {
+	var divUser = $( '#divUser' );
+	var divUserName = $( '#username' );
+	var nationDiv = $( '#nationality' );
+
+	divUser.empty();
+	divUserName.empty();
+	nationDiv.empty();
+
+	db = openDatabase('dpmaps', '1.0', 'BD de Mapas', 2 * 1024 * 1024);
+
 	db.transaction( function ( tx ) {
-		tx.executeSql( 'SELECT * FROM users', [], function ( tx, result ) {
+		tx.executeSql( 'SELECT * FROM users WHERE id='+userId, [], function ( tx, result ) {
 			for ( var i = 0; i < result.rows.length; i++ ) {
 				var item = result.rows.item( i );
 				var user = $( '<div class = "box profile-text"><strong>' + item.name + '</strong>' +
@@ -356,14 +366,10 @@ function setUserData () {
 				var nationality = item.nationality;
 			}
 			previusName = item.name;
-			userId = item.id;
 			$( '.profile-photo' ).attr( 'src', item.img );
-			var divUser = $( '#divUser' );
-			var divUserName = $( '#username' );
-			var nationDiv = $( '#nationality' );
 			$( '#nationalityProfile' ).val( nationality );
 			$( '#email' ).val( item.email );
-			$( '#blood' ).append( item.blood );
+			$( '#blood' ).empty().append( item.blood );
 			divUser.append( user );
 			divUserName.val( item.name );
 			nationDiv.append( nationality );
@@ -386,13 +392,15 @@ function editProfile () {
 	console.log( userName );
 
 	db = openDatabase('dpmaps', '1.0', 'BD de Mapas', 2 * 1024 * 1024);
-
 	db.transaction( function ( tx ) {
-		tx.executeSql( 'UPDATE users SET name=?, email=?, nationality=? WHERE id=?', [ userName, email, nationality, userId ] );
+		tx.executeSql( 'UPDATE users SET name=?, email=?, nationality=? WHERE id=?', [ userName, email, nationality, userId ], setUserData, onBdError );
 	} );
 
+	location.href = '#index';
+}
 
-	location.href = 'index.html';
+function onBdError (error) {
+	console.log(error.code + " " + error.message);
 }
 
 function onErrorGeolocation ( error ) {
