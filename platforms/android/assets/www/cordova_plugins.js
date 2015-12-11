@@ -29,10 +29,15 @@ module.exports = [
         ]
     },
     {
-        "file": "plugins/cordova-plugin-device/www/device.js",
-        "id": "cordova-plugin-device.device",
+        "file": "plugins/cordova-plugin-whitelist/whitelist.js",
+        "id": "cordova-plugin-whitelist.whitelist",
+        "runs": true
+    },
+    {
+        "file": "plugins/plugin.google.maps/www/googlemaps-cdv-plugin.js",
+        "id": "plugin.google.maps.phonegap-googlemaps-plugin",
         "clobbers": [
-            "device"
+            "plugin.google.maps"
         ]
     },
     {
@@ -47,6 +52,70 @@ module.exports = [
         "id": "cordova-plugin-dialogs.notification_android",
         "merges": [
             "navigator.notification"
+        ]
+    },
+    {
+        "file": "plugins/cordova-plugin-device/www/device.js",
+        "id": "cordova-plugin-device.device",
+        "clobbers": [
+            "device"
+        ]
+    },
+    {
+        "file": "plugins/cordova-plugin-media-capture/www/CaptureAudioOptions.js",
+        "id": "cordova-plugin-media-capture.CaptureAudioOptions",
+        "clobbers": [
+            "CaptureAudioOptions"
+        ]
+    },
+    {
+        "file": "plugins/cordova-plugin-media-capture/www/CaptureImageOptions.js",
+        "id": "cordova-plugin-media-capture.CaptureImageOptions",
+        "clobbers": [
+            "CaptureImageOptions"
+        ]
+    },
+    {
+        "file": "plugins/cordova-plugin-media-capture/www/CaptureVideoOptions.js",
+        "id": "cordova-plugin-media-capture.CaptureVideoOptions",
+        "clobbers": [
+            "CaptureVideoOptions"
+        ]
+    },
+    {
+        "file": "plugins/cordova-plugin-media-capture/www/CaptureError.js",
+        "id": "cordova-plugin-media-capture.CaptureError",
+        "clobbers": [
+            "CaptureError"
+        ]
+    },
+    {
+        "file": "plugins/cordova-plugin-media-capture/www/MediaFileData.js",
+        "id": "cordova-plugin-media-capture.MediaFileData",
+        "clobbers": [
+            "MediaFileData"
+        ]
+    },
+    {
+        "file": "plugins/cordova-plugin-media-capture/www/MediaFile.js",
+        "id": "cordova-plugin-media-capture.MediaFile",
+        "clobbers": [
+            "MediaFile"
+        ]
+    },
+    {
+        "file": "plugins/cordova-plugin-media-capture/www/capture.js",
+        "id": "cordova-plugin-media-capture.capture",
+        "clobbers": [
+            "navigator.device.capture"
+        ]
+    },
+    {
+        "file": "plugins/cordova-plugin-vibration/www/vibration.js",
+        "id": "cordova-plugin-vibration.notification",
+        "merges": [
+            "navigator.notification",
+            "navigator"
         ]
     },
     {
@@ -194,89 +263,20 @@ module.exports = [
             "cordova"
         ],
         "runs": true
-    },
-    {
-        "file": "plugins/cordova-plugin-media-capture/www/CaptureAudioOptions.js",
-        "id": "cordova-plugin-media-capture.CaptureAudioOptions",
-        "clobbers": [
-            "CaptureAudioOptions"
-        ]
-    },
-    {
-        "file": "plugins/cordova-plugin-media-capture/www/CaptureImageOptions.js",
-        "id": "cordova-plugin-media-capture.CaptureImageOptions",
-        "clobbers": [
-            "CaptureImageOptions"
-        ]
-    },
-    {
-        "file": "plugins/cordova-plugin-media-capture/www/CaptureVideoOptions.js",
-        "id": "cordova-plugin-media-capture.CaptureVideoOptions",
-        "clobbers": [
-            "CaptureVideoOptions"
-        ]
-    },
-    {
-        "file": "plugins/cordova-plugin-media-capture/www/CaptureError.js",
-        "id": "cordova-plugin-media-capture.CaptureError",
-        "clobbers": [
-            "CaptureError"
-        ]
-    },
-    {
-        "file": "plugins/cordova-plugin-media-capture/www/MediaFileData.js",
-        "id": "cordova-plugin-media-capture.MediaFileData",
-        "clobbers": [
-            "MediaFileData"
-        ]
-    },
-    {
-        "file": "plugins/cordova-plugin-media-capture/www/MediaFile.js",
-        "id": "cordova-plugin-media-capture.MediaFile",
-        "clobbers": [
-            "MediaFile"
-        ]
-    },
-    {
-        "file": "plugins/cordova-plugin-media-capture/www/capture.js",
-        "id": "cordova-plugin-media-capture.capture",
-        "clobbers": [
-            "navigator.device.capture"
-        ]
-    },
-    {
-        "file": "plugins/cordova-plugin-vibration/www/vibration.js",
-        "id": "cordova-plugin-vibration.notification",
-        "merges": [
-            "navigator.notification",
-            "navigator"
-        ]
-    },
-    {
-        "file": "plugins/cordova-plugin-whitelist/whitelist.js",
-        "id": "cordova-plugin-whitelist.whitelist",
-        "runs": true
-    },
-    {
-        "file": "plugins/plugin.google.maps/www/googlemaps-cdv-plugin.js",
-        "id": "plugin.google.maps.phonegap-googlemaps-plugin",
-        "clobbers": [
-            "plugin.google.maps"
-        ]
     }
 ];
 module.exports.metadata = 
 // TOP OF METADATA
 {
     "cordova-plugin-camera": "1.2.0",
-    "cordova-plugin-device": "1.1.0",
-    "cordova-plugin-dialogs": "1.2.0",
-    "cordova-plugin-file": "3.0.0",
     "cordova-plugin-geolocation": "1.0.1",
+    "cordova-plugin-whitelist": "1.2.0",
+    "plugin.google.maps": "1.3.4",
+    "cordova-plugin-dialogs": "1.2.0",
+    "cordova-plugin-device": "1.1.0",
     "cordova-plugin-media-capture": "1.1.0",
     "cordova-plugin-vibration": "2.0.0",
-    "cordova-plugin-whitelist": "1.2.0",
-    "plugin.google.maps": "1.3.4"
+    "cordova-plugin-file": "3.0.0"
 }
 // BOTTOM OF METADATA
 });

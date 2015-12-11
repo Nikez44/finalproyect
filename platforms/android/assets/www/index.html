@@ -45,6 +45,25 @@
 
     </section>
 
+    <section data-role="popup" id="popupUpdateMap">
+        <div data-role="header">
+            <h1 class='nd-title'>Actualizar Mapa</h1>
+        </div>
+        <div data-role="content">
+
+            <form action="#">
+                <label for="marker-name">Nombre:</label>
+                <input type="text" name="map-name" id="map-cur-name" data-clear-btn="true"
+                       placeholder="Nombre del mapa">
+            </form>
+
+            <a href="#" id="updatemap-btn-popup" data-role="button" class="ui-btn ui-btn-primary"><i
+                    class='zmdi zmdi-check'></i>Aceptar</a>
+            <a href="#" id="updatecancelmap-btn-popup" data-role="button" class="ui-btn ui-btn-primary"><i
+                    class='zmdi zmdi-cancel'></i>Cancelar</a>
+        </div>
+    </section>
+
     <nd2-include data-src="navigationDrawer.html"></nd2-include>
 </section>
 

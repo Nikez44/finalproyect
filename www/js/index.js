@@ -39,8 +39,11 @@ function init() {
     saveMapListener();
     saveBtnPopupMapListener();
     cancelBtnPopupMapListener();
-    $("#popupSaveMarker").bind({
-        popupafterclose: function (event, ui) {
+    updateBtnPopupMapListener();
+    upCancelBtnPopupMapListener();
+
+    $( "#popupSaveMarker" ).bind({
+        popupafterclose: function(event, ui) {
             map.setClickable(true);
         }
     });
@@ -140,8 +143,8 @@ function fillListView(){
 
                 var options = $('<div class="ui-grid-c">' +
                     '<div class="ui-block-a"><a href="#" class="ui-btn ui-btn-inline ui-mini vermap" data-id="'+item.id+'"><i class="zmdi zmdi-eye"></i> Ver</a></div>'+
-                    '<div class="ui-block-b"><a href="#" class="ui-btn ui-btn-inline ui-mini editmap" data-id="'+item.id+'"><i class="zmdi zmdi-edit"></i> Editar</a></div>'+
-                    '<div class="ui-block-c"><a href="#" class="ui-btn ui-btn-inline ui-mini deletemap data-id="'+item.id+'""><i class="zmdi zmdi-delete"></i> Eliminar</a></div>'+
+                    //'<div class="ui-block-b"><a href="#" class="ui-btn ui-btn-inline ui-mini editmap" data-id="'+item.id+'"><i class="zmdi zmdi-edit"></i> Editar</a></div>'+
+                    //'<div class="ui-block-c"><a href="#" class="ui-btn ui-btn-inline ui-mini deletemap" data-id="'+item.id+'"><i class="zmdi zmdi-delete"></i> Eliminar</a></div>'+
                     '</div>');
 
                 element.append(options);
@@ -183,7 +186,12 @@ function saveBtnPopupMarkerListener() {
             drawMarker();
             $('#popupSaveMarker').popup("close");
         } else {
-            alert("Debes ingresar un nombre");
+            navigator.notification.alert(
+                'Debes ingresar un nombre',  // message
+                0,
+                'Atencion',            // title
+                'OK'                  // buttonName
+            );
         }
     });
 }
@@ -201,9 +209,15 @@ function saveMapListener() {
 
         if (!CURRENTMARKERS.isEmpty()) {
             map.setClickable(false);
+            $('#map-name').val('');
             $('#popupSaveMap').popup("open");
         } else {
-            alert('Debes de poner al menos un lugar');
+            navigator.notification.alert(
+                'Debes de poner al menos un lugar',  // message
+                0,
+                'Atencion',            // title
+                'OK'                  // buttonName
+            );
         }
 
     });
@@ -223,7 +237,12 @@ function saveBtnPopupMapListener() {
             });
 
         }else{
-            alert("Debes ingresar un nombre");
+            navigator.notification.alert(
+                'Debes ingresar un nombre',  // message
+                0,
+                'Atencion',            // title
+                'OK'                  // buttonName
+            );
         }
 
     });
@@ -271,7 +290,12 @@ function searchButtonListener() {
                 });
 
             } else {
-                alert("Not found");
+                navigator.notification.alert(
+                    'No se encontro ninguna coincidencia',  // message
+                    0,
+                    'Atencion',            // title
+                    'OK'                  // buttonName
+                );
             }
         });
 
@@ -465,7 +489,12 @@ function onCheck() {
             $("#MarkBtn").text("Visitado");
             $("#MarkBtn").button('disable');
         } else {
-            alert("No puedes hacer check en este lugar");
+            navigator.notification.alert(
+                'No puedes hacer check en este lugar',  // message
+                0,
+                'Atencion',            // title
+                'OK'                  // buttonName
+            );
             $("#MarkBtn").text("No visitado");
             $("#MarkBtn").button('enable');
         }
@@ -474,8 +503,7 @@ function onCheck() {
 
 function isOnRange() {
 
-
-    if ((Math.abs(latitudMarkerCheck- currentLatitude) <= rangeMarker) && (Math.abs( longitudMarkerCheck - currentLongitude) <= rangeMarker)) {
+    if ((Math.abs(latitudMarkerCheck - currentLatitude) <= rangeMarker) && (Math.abs( longitudMarkerCheck - currentLongitude) <= rangeMarker)) {
         return true;
     } else {
         return false;

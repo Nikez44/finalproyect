@@ -35,7 +35,12 @@ function capturePhoto() {
             destinationType: destinationType.FILE_URI,
             saveToPhotoAlbum: true});
     }else{
-        alert("No puedes tomar imagenes hasta haber llegado a este lugar.");
+        navigator.notification.alert(
+            'No puedes tomar imagenes hasta haber llegado a este lugar.',  // message
+            0,
+            'Atencion',            // title
+            'OK'                  // buttonName
+        );
     }
 }
 
