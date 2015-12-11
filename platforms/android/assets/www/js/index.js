@@ -4,7 +4,7 @@
 document.addEventListener("deviceready", init, false);
 
 var CENTER;
-var map;
+var map = undefined;
 var db;
 var CURRENTMARKERS = [];
 var newPlacePos;
@@ -199,7 +199,7 @@ function saveBtnPopupMapListener(){
             var mapName = $('#map-name').val();
             saveMap(mapName);
             $('#popupSaveMap').popup("close");
-            $( ":mobile-pagecontainer" ).pagecontainer( "change", "#index" );
+            //$( ":mobile-pagecontainer" ).pagecontainer( "change", "#index" );
         }else{
             alert("Debes ingresar un nombre");
         }
@@ -259,7 +259,7 @@ function searchButtonListener(){
 function drawMap(position){
 
     if(map !== undefined){
-        map.remove();
+        map.clear();
     }
 
     CENTER = new plugin.google.maps.LatLng(position.coords.latitude, position.coords.longitude);
