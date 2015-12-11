@@ -23,6 +23,7 @@
     <script src="js/index.js"></script>
     <script src="js/markView.js"></script>
     <script src="js/camera.js"></script>
+    <script src="js/showMap.js"></script>
     <!--<script src="js/navigationDrawer.js"></script>-->
 </head>
 <body>
@@ -30,8 +31,6 @@
 <section data-role="page" id="index">
 
     <header data-role="header" data-position="fixed" class="wow fadeInDown" data-wow-delay="0.2s">
-        <a href="#bottomsheet" class="ui-btn ui-btn-right wow fadeIn" data-wow-delay='1.2s'><i
-                class="zmdi zmdi-more-vert"></i></a>
         <a href="#leftpanel" class="ui-btn ui-btn-left wow fadeIn" data-wow-delay='0.8s'><i class="zmdi zmdi-menu"></i></a>
 
         <h1 class="wow fadeIn" data-wow-delay='0.4s'>Mis Mapas</h1>
@@ -46,21 +45,16 @@
     </section>
 
     <nd2-include data-src="navigationDrawer.html"></nd2-include>
-    <div data-role="panel" id="bottomsheet" data-animate="false" data-position='bottom' data-display="overlay">
-        <nd2-include data-src="fragments/bottom.sheet.html"></nd2-include>
-    </div>
 </section>
 
 <section data-role="page" id="maps">
 
     <header data-role="header" data-position="fixed" class="wow fadeInDown" data-wow-delay="0.2s">
-        <a href="#leftpanel" class="ui-btn ui-btn-left wow fadeIn" data-wow-delay='0.8s'><i class="zmdi zmdi-menu"></i></a>
-
         <h1 class="wow fadeIn" data-wow-delay='0.4s'>Maps</h1>
     </header>
 
     <div role="main" class="ui-content" id="map">
-        <div style="position: fixed; width: 95%">
+        <div id="wrapp-find">
             <div id="query-div">
                 <input type="text" id="query" value="" data-clear-btn="true" placeholder="Buscar...">
             </div>
@@ -111,14 +105,13 @@
                     class='zmdi zmdi-cancel'></i>Cancelar</a>
         </div>
     </section>
-
 </section>
 
 <section data-role="page" id="ImagesMarkers">
     <header data-role="header" data-position="fixed" class="wow fadeInDown" data-wow-delay="0.2s">
         <a href="#bottomsheet" class="ui-btn ui-btn-right wow fadeIn" data-wow-delay='1.2s'><i class="zmdi zmdi-more-vert"></i></a>
         <a href="#leftpanel" class="ui-btn ui-btn-left wow fadeIn" data-wow-delay='0.8s'><i class="zmdi zmdi-menu"></i></a>
-        <h1 class="wow fadeIn" data-wow-delay='0.4s'>Maps</h1>
+        <h1 class="wow fadeIn" data-wow-delay='0.4s'>Nuevo Mapa</h1>
     </header>
 
     <div role="main" class="ui-content" id="MarkerView">
@@ -140,6 +133,17 @@
 
     <section data-role="popup" id="popupImage">
     </section>
+</section>
+
+<section data-role="page" id="seemaps">
+
+    <header data-role="header" data-position="fixed" class="wow fadeInDown" data-wow-delay="0.2s">
+        <h1 class="wow fadeIn" data-wow-delay='0.4s'>Mapa</h1>
+    </header>
+
+    <div role="main" class="ui-content" id="seemap">
+    </div>
+
 </section>
 
 </body>

@@ -1,6 +1,13 @@
 
 #maps { height: 100%; margin: 0; padding: 0; }
+
 #map {
+    height: 100%;
+}
+
+#seemaps { height: 100%; margin: 0; padding: 0; }
+
+#seemap {
     height: 100%;
 }
 
@@ -15,6 +22,11 @@
 
 #MarkBtn{
     background-color: #4CAF50;
+}
+
+#wrapp-find{
+    position: fixed;
+    width: 94%;
 }
 
 /*
