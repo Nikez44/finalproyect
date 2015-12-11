@@ -23,8 +23,8 @@
     <script src="js/index.js"></script>
     <script src="js/markView.js"></script>
     <script src="js/camera.js"></script>
-    <script src="js/VideoCapture.js"></script>
     <script src="js/showMap.js"></script>
+    <script src="js/VideoCapture.js"></script>
     <!--<script src="js/navigationDrawer.js"></script>-->
 </head>
 <body>
@@ -106,6 +106,8 @@
                     class='zmdi zmdi-cancel'></i>Cancelar</a>
         </div>
     </section>
+
+    <nd2-include data-src="navigationDrawer.html"></nd2-include>
 </section>
 
 <section data-role="page" id="ImagesMarkers">
@@ -135,6 +137,8 @@
 
     <section data-role="popup" id="popupImage">
     </section>
+
+    <nd2-include data-src="navigationDrawer.html"></nd2-include>
 </section>
 
 <section data-role="page" id="seemaps">
@@ -146,6 +150,41 @@
     <div role="main" class="ui-content" id="seemap">
     </div>
 
+    <nd2-include data-src="navigationDrawer.html"></nd2-include>
+
+
+</section>
+
+<section data-role="page" id="profile">
+    <header data-role="header" data-position="fixed" class="wow fadeInDown" data-wow-delay="0.2s">
+        <a href="#bottomsheet" class="ui-btn ui-btn-right wow fadeIn" data-wow-delay='1.2s'><i class="zmdi zmdi-more-vert"></i></a>
+        <h1 class="wow fadeIn" data-wow-delay='0.4s'>Perfil</h1>
+    </header>
+
+    <section role="main" class="ui-content" data-inset="false">
+        <div class="nd2-card">
+            <div id="profile-photo" class="card-media">
+                <img class="profile-thumbnail profile-photo">
+                <div class="card-media-overlay">
+                    <div class="card-action">
+                        <div class="row between-xs">
+                            <div class="col-xs-12">
+                                <div class="box">
+                                    <a href="#" class="ui-btn ui-btn-inline waves-effect waves-button waves-effect waves-button"><img src="img/camera.png"></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-supporting-text" id="profile-info">
+                <input type="text" class="align-left" id="username" />
+                <input type="text" class="align-center" id="email" />
+                <input type="text" class="align-center" id="nationalityProfile" />
+                <button class="ui-btn" id="saveChanges" onclick="editProfile()">Guardar</button>
+            </div>
+        </div>
+    </section>
 </section>
 
 </body>

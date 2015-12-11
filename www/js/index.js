@@ -22,6 +22,7 @@ var currentLongitude;
 function init() {
     createDataBase();
     setUserData();
+	setDeviceData();
     initCamera();
 
     fillListView();
@@ -344,6 +345,7 @@ function drawMarker(){
 }
 
 var userId;
+var previusName;
 function setUserData () {
 	db.transaction( function ( tx ) {
 		tx.executeSql( 'SELECT * FROM users', [], function ( tx, result ) {
@@ -353,6 +355,7 @@ function setUserData () {
 					'<span class="subline">' + item.email + '</span>' );
 				var nationality = item.nationality;
 			}
+			previusName = item.name;
 			userId = item.id;
 			$( '.profile-photo' ).attr( 'src', item.img );
 			var divUser = $( '#divUser' );
@@ -382,9 +385,12 @@ function editProfile () {
 	console.log( userId );
 	console.log( userName );
 
+	db = openDatabase('dpmaps', '1.0', 'BD de Mapas', 2 * 1024 * 1024);
+
 	db.transaction( function ( tx ) {
-		tx.executeSql( 'UPDATE users SET name=?, email=?, nationality=? WHERE id=?;', [ "Joshua Flores", "nada@nada.com", "RUso", 1 ] );
+		tx.executeSql( 'UPDATE users SET name=?, email=?, nationality=? WHERE id=?', [ userName, email, nationality, userId ] );
 	} );
+
 
 	location.href = 'index.html';
 }
