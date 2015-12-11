@@ -22,6 +22,7 @@ var currentLongitude;
 function init() {
     createDataBase();
     setUserData();
+	setDeviceData();
     initCamera();
 
     fillListView();
@@ -76,12 +77,14 @@ function createDataBase(){
             'zoom INTEGER' +
             ');');
 
-        tx.executeSql('CREATE TABLE IF NOT EXISTS users (' +
-            'id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, ' +
-            'name VARCHAR(100), ' +
-            'email VARCHAR(100),' +
-            'nationality VARCHAR(45)' +
-            ');');
+		tx.executeSql( 'CREATE TABLE IF NOT EXISTS users (' +
+			'id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, ' +
+			'name VARCHAR(100), ' +
+			'email VARCHAR(100),' +
+			'nationality VARCHAR(45),' +
+			'blood VARCHAR(5),' +
+			'img TEXT' +
+			');' );
 
         tx.executeSql('CREATE TABLE IF NOT EXISTS markers (' +
             'id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, ' +
@@ -119,9 +122,8 @@ function createDataBase(){
         tx.executeSql("INSERT INTO markers (title, latitud, longitud, range, visited, map_id) VALUES ('Lugar 11', '40.7145', '-74.0009', '90', '0', '4')");
         tx.executeSql("INSERT INTO markers (title, latitud, longitud, range, visited, map_id) VALUES ('Lugar 12', '40.7045', '-74.1009', '10', '0', '4')");
 
-        tx.executeSql("INSERT INTO users (name, email, nationality) VALUES ('Joshua', 'josshft@gmail.com', 'México')");
-
-    });
+		tx.executeSql( "INSERT INTO users (name, email, nationality, blood, img) VALUES ('Joshua', 'josshft@gmail.com', 'México', 'AB-', 'img/josh.jpg')" );
+	} );
 }
 
 function fillListView(){
@@ -141,8 +143,8 @@ function fillListView(){
 
                 var options = $('<div class="ui-grid-c">' +
                     '<div class="ui-block-a"><a href="#" class="ui-btn ui-btn-inline ui-mini vermap" data-id="'+item.id+'"><i class="zmdi zmdi-eye"></i> Ver</a></div>'+
-                    '<div class="ui-block-b"><a href="#" class="ui-btn ui-btn-inline ui-mini editmap" data-id="'+item.id+'"><i class="zmdi zmdi-edit"></i> Editar</a></div>'+
-                    '<div class="ui-block-c"><a href="#" class="ui-btn ui-btn-inline ui-mini deletemap" data-id="'+item.id+'"><i class="zmdi zmdi-delete"></i> Eliminar</a></div>'+
+                    //'<div class="ui-block-b"><a href="#" class="ui-btn ui-btn-inline ui-mini editmap" data-id="'+item.id+'"><i class="zmdi zmdi-edit"></i> Editar</a></div>'+
+                    //'<div class="ui-block-c"><a href="#" class="ui-btn ui-btn-inline ui-mini deletemap" data-id="'+item.id+'"><i class="zmdi zmdi-delete"></i> Eliminar</a></div>'+
                     '</div>');
 
                 element.append(options);
@@ -366,25 +368,67 @@ function drawMarker(){
     });
 }
 
-function setUserData() {
-    db.transaction(function (tx) {
-        tx.executeSql('SELECT * FROM users', [], function (tx, result) {
-            for (var i = 0; i < result.rows.length; i++) {
-                var item = result.rows.item(i);
-                var user = $('<div class = "box profile-text"><strong>' + item.name + '</strong>' +
-                    '<span class="subline">' + item.email + '</span>');
-                var nationality = item.nationality;
-            }
-            var divUser = $('#divUser');
-            var nationDiv = $('#nationality');
-            divUser.append(user);
-            nationDiv.append(nationality);
-        });
-    });
+var userId = 1;
+var previusName;
+function setUserData () {
+	var divUser = $( '#divUser' );
+	var divUserName = $( '#username' );
+	var nationDiv = $( '#nationality' );
+
+	divUser.empty();
+	divUserName.empty();
+	nationDiv.empty();
+
+	db = openDatabase('dpmaps', '1.0', 'BD de Mapas', 2 * 1024 * 1024);
+
+	db.transaction( function ( tx ) {
+		tx.executeSql( 'SELECT * FROM users WHERE id='+userId, [], function ( tx, result ) {
+			for ( var i = 0; i < result.rows.length; i++ ) {
+				var item = result.rows.item( i );
+				var user = $( '<div class = "box profile-text"><strong>' + item.name + '</strong>' +
+					'<span class="subline">' + item.email + '</span>' );
+				var nationality = item.nationality;
+			}
+			previusName = item.name;
+			$( '.profile-photo' ).attr( 'src', item.img );
+			$( '#nationalityProfile' ).val( nationality );
+			$( '#email' ).val( item.email );
+			$( '#blood' ).empty().append( item.blood );
+			divUser.append( user );
+			divUserName.val( item.name );
+			nationDiv.append( nationality );
+		} );
+	} );
 }
 
-function onErrorGeolocation(error) {
-    alert('code: ' + error.code + '\n' + 'message: ' + error.message + '\n');
+function setDeviceData () {
+	$( '#platform' ).append( device.platform );
+	$( '#model' ).append( device.model );
+	$( '#version' ).append( device.version );
+}
+
+function editProfile () {
+	var userName = $( '#username' ).val();
+	var email = $( '#email' ).val();
+	var nationality = $( '#nationalityProfile' ).val();
+
+	console.log( userId );
+	console.log( userName );
+
+	db = openDatabase('dpmaps', '1.0', 'BD de Mapas', 2 * 1024 * 1024);
+	db.transaction( function ( tx ) {
+		tx.executeSql( 'UPDATE users SET name=?, email=?, nationality=? WHERE id=?', [ userName, email, nationality, userId ], setUserData, onBdError );
+	} );
+
+	location.href = '#index';
+}
+
+function onBdError (error) {
+	console.log(error.code + " " + error.message);
+}
+
+function onErrorGeolocation ( error ) {
+	alert( 'code: ' + error.code + '\n' + 'message: ' + error.message + '\n' );
 }
 
 function fillMarkersView() {
