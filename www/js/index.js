@@ -309,9 +309,9 @@ function setMarkerName(){
             var item = result.rows.item(0);
             $('#name-marker').text(item.title);
             if(item.visited ===1){
-                $('#Mark').prop('checked',true).checkboxradio('refresh');
+                $("#MarkBtn").disable(true);
             }else{
-                $('#Mark').prop('checked',false).checkboxradio('refresh');
+                $("#MarkBtn").disable(false);
             }
 
         });
@@ -325,16 +325,38 @@ function saveUriPhoto(idmarker,uri){
 }
 
 function onCheck(){
-    if(!$('#Mark').is('checked')){
-        $('#Mark').prop('checked',true).checkboxradio('refresh');
+    if(isOnRange()){
         db.transaction(function (tx) {
             tx.executeSql('UPDATE markers SET visited ='+1+' WHERE id = "' + getIdMarker()+ '"');
         });
+
+        $("#MarkBtn").disable(true);
     }else{
-        $('#Mark').prop('checked',false).checkboxradio('refresh');
+        alert("No puedes hacer check en este lugar");
+        $("#MarkBtn").disable(false);
     }
 }
 
 function isOnRange(){
+    var latitude;
+    var longitude;
+    var range;
+    db.transaction(function (tx) {
+        tx.executeSql('SELECT * FROM markers where id = "'+ getIdMarker()+'"', [], function (tx, result) {
+            var item = result.rows.item(0);
 
+            latitude = item.latitude;
+            longitude = item.longitude;
+            range = item.range;
+        });
+    });
+
+    navigator.geolocation.getCurrentPosition(function(pos){
+        if(((pos.latitude - latitude) <= range) && ((pos.longitude - longitude) <= range)){
+            navigator.vibrate(3000);
+            return true;
+        }else{
+            return false;
+        }
+    }, onErrorGeolocation);
 }

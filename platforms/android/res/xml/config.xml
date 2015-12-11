@@ -4,6 +4,12 @@
     <feature name="Camera">
         <param name="android-package" value="org.apache.cordova.camera.CameraLauncher" />
     </feature>
+    <feature name="Device">
+        <param name="android-package" value="org.apache.cordova.device.Device" />
+    </feature>
+    <feature name="Vibration">
+        <param name="android-package" value="org.apache.cordova.vibration.Vibration" />
+    </feature>
     <feature name="Whitelist">
         <param name="android-package" value="org.apache.cordova.whitelist.WhitelistPlugin" />
         <param name="onload" value="true" />
@@ -16,9 +22,6 @@
     </feature>
     <feature name="Geocoder">
         <param name="android-package" value="plugin.google.maps.MyGeocoder" />
-    </feature>
-    <feature name="GeofencePlugin">
-        <param name="android-package" value="com.cowbell.cordova.geofence.GeofencePlugin" />
     </feature>
     <allow-intent href="market:*" />
     <name>FinalProyect</name>

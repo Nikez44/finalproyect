@@ -29,9 +29,14 @@ function onPhotoURISuccess(imageURI) {
 
 function capturePhoto() {
     // Take picture using device camera and retrieve image as base64-encoded string
-    navigator.camera.getPicture(onPhotoDataSuccess, onFail, { quality: 50,
-        destinationType: destinationType.FILE_URI,
-        saveToPhotoAlbum: true});
+
+    if(isOnRange()){
+        navigator.camera.getPicture(onPhotoDataSuccess, onFail, { quality: 50,
+            destinationType: destinationType.FILE_URI,
+            saveToPhotoAlbum: true});
+    }else{
+        alert("No puedes tomar imagenes hasta haber llegado a este lugar.");
+    }
 }
 
 function getPhoto(source) {
