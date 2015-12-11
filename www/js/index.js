@@ -31,6 +31,9 @@ function init(){
     saveMapListener();
     saveBtnPopupMapListener();
     cancelBtnPopupMapListener();
+    updateBtnPopupMapListener();
+    upCancelBtnPopupMapListener();
+
     $( "#popupSaveMarker" ).bind({
         popupafterclose: function(event, ui) {
             map.setClickable(true);
@@ -56,7 +59,7 @@ function createDataBase(){
     db.transaction(function (tx) {
         tx.executeSql('DROP TABLE IF EXISTS maps');
         tx.executeSql('DROP TABLE IF EXISTS markers');
-		tx.executeSql('DROP TABLE IF EXISTS users');
+        tx.executeSql('DROP TABLE IF EXISTS users');
 
         tx.executeSql('CREATE TABLE IF NOT EXISTS maps (' +
             'id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, ' +
@@ -132,7 +135,7 @@ function fillListView(){
                 var options = $('<div class="ui-grid-c">' +
                     '<div class="ui-block-a"><a href="#" class="ui-btn ui-btn-inline ui-mini vermap" data-id="'+item.id+'"><i class="zmdi zmdi-eye"></i> Ver</a></div>'+
                     '<div class="ui-block-b"><a href="#" class="ui-btn ui-btn-inline ui-mini editmap" data-id="'+item.id+'"><i class="zmdi zmdi-edit"></i> Editar</a></div>'+
-                    '<div class="ui-block-c"><a href="#" class="ui-btn ui-btn-inline ui-mini deletemap data-id="'+item.id+'""><i class="zmdi zmdi-delete"></i> Eliminar</a></div>'+
+                    '<div class="ui-block-c"><a href="#" class="ui-btn ui-btn-inline ui-mini deletemap" data-id="'+item.id+'"><i class="zmdi zmdi-delete"></i> Eliminar</a></div>'+
                     '</div>');
 
                 element.append(options);

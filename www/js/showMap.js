@@ -3,13 +3,71 @@
  */
 
 var CURRENTPOSMAP;
+var idSeeMap;
 
 $(document).on('click', '.vermap', function(e){
     e.preventDefault();
-    var idSeeMap = $(this).data('id');
+    idSeeMap = $(this).data('id');
     window.location.href = "#seemaps";
     drawSeeMap(idSeeMap);
 });
+
+$(document).on('click', '.editmap', function(e){
+    e.preventDefault();
+    idSeeMap = $(this).data('id');
+
+    db.transaction(function (tx) {
+        tx.executeSql('SELECT * FROM maps where id = "'+ idSeeMap +'"', [], function (tx, result) {
+            var item = result.rows.item(0);
+
+            $('#map-cur-name').val(item.name);
+
+        });
+    });
+
+    $('#popupUpdateMap').popup('open');
+});
+
+$(document).on('click', '.deletemap', function(e){
+    e.preventDefault();
+    idSeeMap = $(this).data('id');
+    alert('Eliminando Mapa' + idSeeMap);
+});
+
+
+function updateBtnPopupMapListener(){
+    $('#updatemap-btn-popup').on('click', function(e){
+        e.preventDefault();
+
+        if($('#map-cur-name').val()){
+            var mapName = $('#map-cur-name').val();
+            updateMap(mapName);
+            $('#popupUpdateMap').popup("close");
+            /*new $.nd2Toast({ // The 'new' keyword is important, otherwise you would overwrite the current toast instance
+                message : "Mapa guardado exitosamente!", // Required
+                ttl : 6000 // optional, time-to-live in ms (default: 3000)
+            });*/
+
+        }else{
+            alert("Debes ingresar un nombre");
+        }
+
+    });
+}
+
+function updateMap(name){
+    alert('Actualizando el mapa ' + idSeeMap + "con el nombre " + name);
+    db.transaction(function (tx) {
+        tx.executeSql('UPDATE maps SET name ='+name+' WHERE id = "' + idSeeMap + '"');
+    });
+}
+
+function upCancelBtnPopupMapListener(){
+    $('#updatecancelmap-btn-popup').on('click', function(e){
+        e.preventDefault();
+        $('#popupUpdateMap').popup("close");
+    });
+}
 
 function drawSeeMap(id){
 
@@ -28,7 +86,7 @@ function drawSeeMap(id){
     });
 
     getMarkersFromMap(id);
-    CURRENTMARKERS = []
+    CURRENTMARKERS = [];
     initializeMap("seemap", readySeeMap);
 
 }
@@ -49,8 +107,6 @@ function readySeeMap(){
         target: CURRENTPOSMAP,
         zoom: 13
     });
-
-    //alert(CURRENTMARKERS.length);
 
     CURRENTMARKERS.forEach(function(marker){
         var pos =  new plugin.google.maps.LatLng(marker.latitud, marker.longitud);
