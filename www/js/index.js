@@ -184,7 +184,12 @@ function saveBtnPopupMarkerListener() {
             drawMarker();
             $('#popupSaveMarker').popup("close");
         } else {
-            alert("Debes ingresar un nombre");
+            navigator.notification.alert(
+                'Debes ingresar un nombre',  // message
+                0,
+                'Atencion',            // title
+                'OK'                  // buttonName
+            );
         }
     });
 }
@@ -202,9 +207,15 @@ function saveMapListener() {
 
         if (!CURRENTMARKERS.isEmpty()) {
             map.setClickable(false);
+            $('#map-name').val('');
             $('#popupSaveMap').popup("open");
         } else {
-            alert('Debes de poner al menos un lugar');
+            navigator.notification.alert(
+                'Debes de poner al menos un lugar',  // message
+                0,
+                'Atencion',            // title
+                'OK'                  // buttonName
+            );
         }
 
     });
@@ -224,7 +235,12 @@ function saveBtnPopupMapListener() {
             });
 
         }else{
-            alert("Debes ingresar un nombre");
+            navigator.notification.alert(
+                'Debes ingresar un nombre',  // message
+                0,
+                'Atencion',            // title
+                'OK'                  // buttonName
+            );
         }
 
     });
@@ -272,7 +288,12 @@ function searchButtonListener() {
                 });
 
             } else {
-                alert("Not found");
+                navigator.notification.alert(
+                    'No se encontro ninguna coincidencia',  // message
+                    0,
+                    'Atencion',            // title
+                    'OK'                  // buttonName
+                );
             }
         });
 
@@ -424,7 +445,12 @@ function onCheck() {
             $("#MarkBtn").text("Visitado");
             $("#MarkBtn").button('disable');
         } else {
-            alert("No puedes hacer check en este lugar");
+            navigator.notification.alert(
+                'No puedes hacer check en este lugar',  // message
+                0,
+                'Atencion',            // title
+                'OK'                  // buttonName
+            );
             $("#MarkBtn").text("No visitado");
             $("#MarkBtn").button('enable');
         }
@@ -433,8 +459,7 @@ function onCheck() {
 
 function isOnRange() {
 
-
-    if ((Math.abs(latitudMarkerCheck- currentLatitude) <= rangeMarker) && (Math.abs( longitudMarkerCheck - currentLongitude) <= rangeMarker)) {
+    if ((Math.abs(latitudMarkerCheck - currentLatitude) <= rangeMarker) && (Math.abs( longitudMarkerCheck - currentLongitude) <= rangeMarker)) {
         return true;
     } else {
         return false;

@@ -29,6 +29,14 @@
                             "count": 1
                         },
                         {
+                            "xml": "<feature name=\"Notification\"><param name=\"android-package\" value=\"org.apache.cordova.dialogs.Notification\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"Device\"><param name=\"android-package\" value=\"org.apache.cordova.device.Device\" /></feature>",
+                            "count": 1
+                        },
+                        {
                             "xml": "<feature name=\"File\"><param name=\"android-package\" value=\"org.apache.cordova.file.FileUtils\" /><param name=\"onload\" value=\"true\" /></feature>",
                             "count": 1
                         },
@@ -37,7 +45,7 @@
                             "count": 1
                         },
                         {
-                            "xml": "<feature name=\"Notification\"><param name=\"android-package\" value=\"org.apache.cordova.dialogs.Notification\" /></feature>",
+                            "xml": "<feature name=\"Vibration\"><param name=\"android-package\" value=\"org.apache.cordova.vibration.Vibration\" /></feature>",
                             "count": 1
                         }
                     ]
@@ -105,6 +113,10 @@
                         {
                             "xml": "<uses-feature android:glEsVersion=\"0x00020000\" android:required=\"true\" />",
                             "count": 1
+                        },
+                        {
+                            "xml": "<uses-permission android:name=\"android.permission.VIBRATE\" />",
+                            "count": 1
                         }
                     ]
                 }
@@ -135,10 +147,16 @@
             "API_KEY_FOR_ANDROID": "AIzaSyBr4svogfWUznlVdbsYSt3vAvWxSw2v8uw",
             "PACKAGE_NAME": "com.example.finalproyect"
         },
+        "cordova-plugin-dialogs": {
+            "PACKAGE_NAME": "com.example.finalproyect"
+        },
+        "cordova-plugin-device": {
+            "PACKAGE_NAME": "com.example.finalproyect"
+        },
         "cordova-plugin-media-capture": {
             "PACKAGE_NAME": "com.example.finalproyect"
         },
-        "cordova-plugin-dialogs": {
+        "cordova-plugin-vibration": {
             "PACKAGE_NAME": "com.example.finalproyect"
         }
     },

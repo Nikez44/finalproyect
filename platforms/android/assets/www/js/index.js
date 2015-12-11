@@ -54,19 +54,19 @@ function init() {
     });
 }
 
-function initIndex(){
-    $('#maps-list').collapsibleset( "destroy" );
+function initIndex() {
+    $('#maps-list').collapsibleset("destroy");
     $('#maps-list').empty();
     fillListView();
 }
 
-function createDataBase() {
+function createDataBase(){
     db = openDatabase('dpmaps', '1.0', 'BD de Mapas', 2 * 1024 * 1024);
 
     db.transaction(function (tx) {
         tx.executeSql('DROP TABLE IF EXISTS maps');
         tx.executeSql('DROP TABLE IF EXISTS markers');
-		tx.executeSql('DROP TABLE IF EXISTS users');
+        tx.executeSql('DROP TABLE IF EXISTS users');
 
         tx.executeSql('CREATE TABLE IF NOT EXISTS maps (' +
             'id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, ' +
@@ -153,7 +153,7 @@ function fillListView(){
     });
 }
 
-function getMarkers(id, element){
+function getMarkers(id, element) {
     db.transaction(function (tx) {
         tx.executeSql('SELECT * FROM markers WHERE map_id = ' + id, [], function (tx, resultMarkers) {
             for (var j = 0; j < resultMarkers.rows.length; j++) {
@@ -184,7 +184,12 @@ function saveBtnPopupMarkerListener() {
             drawMarker();
             $('#popupSaveMarker').popup("close");
         } else {
-            alert("Debes ingresar un nombre");
+            navigator.notification.alert(
+                'Debes ingresar un nombre',  // message
+                0,
+                'Atencion',            // title
+                'OK'                  // buttonName
+            );
         }
     });
 }
@@ -204,7 +209,12 @@ function saveMapListener() {
             map.setClickable(false);
             $('#popupSaveMap').popup("open");
         } else {
-            alert('Debes de poner al menos un lugar');
+            navigator.notification.alert(
+                'Debes de poner al menos un lugar',  // message
+                0,
+                'Atencion',            // title
+                'OK'                  // buttonName
+            );
         }
 
     });
@@ -224,7 +234,12 @@ function saveBtnPopupMapListener() {
             });
 
         }else{
-            alert("Debes ingresar un nombre");
+            navigator.notification.alert(
+                'Debes ingresar un nombre',  // message
+                0,
+                'Atencion',            // title
+                'OK'                  // buttonName
+            );
         }
 
     });
@@ -272,7 +287,12 @@ function searchButtonListener() {
                 });
 
             } else {
-                alert("Not found");
+                navigator.notification.alert(
+                    'No se encontro ninguna coincidencia',  // message
+                    0,
+                    'Atencion',            // title
+                    'OK'                  // buttonName
+                );
             }
         });
 
@@ -424,7 +444,12 @@ function onCheck() {
             $("#MarkBtn").text("Visitado");
             $("#MarkBtn").button('disable');
         } else {
-            alert("No puedes hacer check en este lugar");
+            navigator.notification.alert(
+                'No puedes hacer check en este lugar',  // message
+                0,
+                'Atencion',            // title
+                'OK'                  // buttonName
+            );
             $("#MarkBtn").text("No visitado");
             $("#MarkBtn").button('enable');
         }

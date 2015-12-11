@@ -49,7 +49,12 @@ function updateBtnPopupMapListener(){
             });*/
 
         }else{
-            alert("Debes ingresar un nombre");
+            navigator.notification.alert(
+                'Debes ingresar un nombre',  // message
+                0,
+                'Atencion',            // title
+                'OK'                  // buttonName
+            );
         }
 
     });
