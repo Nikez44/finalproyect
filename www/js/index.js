@@ -4,7 +4,7 @@
 document.addEventListener("deviceready", init, false);
 
 var CENTER;
-var map;
+var map = undefined;
 var db;
 var CURRENTMARKERS = [];
 var newPlacePos;
@@ -259,7 +259,7 @@ function searchButtonListener(){
 function drawMap(position){
 
     if(map !== undefined){
-        map.remove();
+        map.clear();
     }
 
     CENTER = new plugin.google.maps.LatLng(position.coords.latitude, position.coords.longitude);
