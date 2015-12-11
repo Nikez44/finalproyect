@@ -24,6 +24,7 @@
     <script src="js/markView.js"></script>
     <script src="js/camera.js"></script>
     <script src="js/showMap.js"></script>
+    <script src="js/VideoCapture.js"></script>
     <!--<script src="js/navigationDrawer.js"></script>-->
 </head>
 <body>
@@ -122,6 +123,7 @@
                 <h3 id="name-marker"></h3>
                 <p id="latitude"></p>
                 <p id="longitude"></p>
+                <p id="range"></p>
             </div>
             <div id="btnMarker">
                 <button onclick="onCheck()" id="MarkBtn">No visitado</button>
@@ -130,7 +132,7 @@
 
         <div id="gallery"></div>
 
-        <a href="#" class="ui-btn ui-btn-inline ui-btn-fab ui-btn-fab-bottom ui-btn-raised clr-primary" onclick="capturePhoto();"><i class='zmdi zmdi-camera zmd-2x'></i></a>
+        <a href="#" class="ui-btn ui-btn-inline ui-btn-fab ui-btn-fab-bottom ui-btn-raised clr-primary" onclick="selectCamera();"><i class='zmdi zmdi-camera zmd-2x'></i></a>
     </div>
 
     <section data-role="popup" id="popupImage">
