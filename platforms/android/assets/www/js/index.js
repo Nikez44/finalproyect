@@ -6,6 +6,7 @@ document.addEventListener("deviceready", init, false);
 var CENTER;
 var map;
 var db;
+var CURRENTMARKERS = [];
 var newPlacePos;
 var newPlaceName;
 var newPlaceRange;
@@ -13,21 +14,39 @@ var UNITS = 0.00009; //10 metros
 
 function init(){
     createDataBase();
-    fillListView();
 	setUserData();
     initCamera();
-    $(document).on("pageshow", '#maps', initPageMaps);
+    fillListView();
+
+    $(document).on("pagebeforeshow", "#index", initIndex);
+    $(document).on("pagebeforeshow", '#maps', initPageMaps);
     $(document).on("pageshow", '#ImagesMarkers', fillMarkersView);
+
 
     //Listener Buttons Maps
     searchButtonListener();
-    saveBtnPopupListener();
-    cancelBtnPopupListener();
-    $( "#popupDialog" ).bind({
+    saveBtnPopupMarkerListener();
+    cancelBtnPopupMarkerListener();
+    saveMapListener();
+    saveBtnPopupMapListener();
+    cancelBtnPopupMapListener();
+    $( "#popupSaveMarker" ).bind({
         popupafterclose: function(event, ui) {
             map.setClickable(true);
         }
     });
+
+    $( "#popupSaveMap" ).bind({
+        popupafterclose: function(event, ui) {
+            map.setClickable(true);
+        }
+    });
+}
+
+function initIndex(){
+    //$('#maps-list').collapsibleset( "refresh" );
+    $('#maps-list').empty();
+    fillListView();
 }
 
 function createDataBase(){
@@ -76,21 +95,6 @@ function createDataBase(){
         tx.executeSql("INSERT INTO maps (name, latitud, longitud, zoom) VALUES ('Barcelona', '37.422476', '-122.08425', '10')");
         tx.executeSql("INSERT INTO maps (name, latitud, longitud, zoom) VALUES ('NY', '37.422476', '-122.08425', '10')");
 
-        tx.executeSql("INSERT INTO maps (name, latitud, longitud, zoom) VALUES ('Yucatan', '3.57', '4.44', '10')");
-        tx.executeSql("INSERT INTO maps (name, latitud, longitud, zoom) VALUES ('DF', '37.422476', '-122.08425', '10')");
-        tx.executeSql("INSERT INTO maps (name, latitud, longitud, zoom) VALUES ('Barcelona', '37.422476', '-122.08425', '10')");
-        tx.executeSql("INSERT INTO maps (name, latitud, longitud, zoom) VALUES ('NY', '37.422476', '-122.08425', '10')");
-
-        tx.executeSql("INSERT INTO maps (name, latitud, longitud, zoom) VALUES ('Yucatan', '3.57', '4.44', '10')");
-        tx.executeSql("INSERT INTO maps (name, latitud, longitud, zoom) VALUES ('DF', '37.422476', '-122.08425', '10')");
-        tx.executeSql("INSERT INTO maps (name, latitud, longitud, zoom) VALUES ('Barcelona', '37.422476', '-122.08425', '10')");
-        tx.executeSql("INSERT INTO maps (name, latitud, longitud, zoom) VALUES ('NY', '37.422476', '-122.08425', '10')");
-
-        tx.executeSql("INSERT INTO maps (name, latitud, longitud, zoom) VALUES ('Yucatan', '3.57', '4.44', '10')");
-        tx.executeSql("INSERT INTO maps (name, latitud, longitud, zoom) VALUES ('DF', '37.422476', '-122.08425', '10')");
-        tx.executeSql("INSERT INTO maps (name, latitud, longitud, zoom) VALUES ('Barcelona', '37.422476', '-122.08425', '10')");
-        tx.executeSql("INSERT INTO maps (name, latitud, longitud, zoom) VALUES ('NY', '37.422476', '-122.08425', '10')");
-
         tx.executeSql("INSERT INTO markers (title, latitud, longitud, range, visited, map_id) VALUES ('Lugar 1', '37.422476', '-122.08525', '0.001', '0', '1')");
         tx.executeSql("INSERT INTO markers (title, latitud, longitud, range, visited, map_id) VALUES ('Lugar 2', '37.422476', '-122.08525', '0.001', '0', '1')");
         tx.executeSql("INSERT INTO markers (title, latitud, longitud, range, visited, map_id) VALUES ('Lugar 3', '37.422476', '-122.08525', '0.001', '0', '1')");
@@ -101,28 +105,6 @@ function createDataBase(){
         tx.executeSql("INSERT INTO markers (title, latitud, longitud, range, visited, map_id) VALUES ('Lugar 8', '37.422476', '-122.08525', '0.001', '0', '4')");
         tx.executeSql("INSERT INTO markers (title, latitud, longitud, range, visited, map_id) VALUES ('Lugar 9', '37.422476', '-122.08525', '0.001', '0', '4')");
         tx.executeSql("INSERT INTO markers (title, latitud, longitud, range, visited, map_id) VALUES ('Lugar 10', '37.422476', '-122.08525', '0.001', '0', '4')");
-
-        tx.executeSql("INSERT INTO markers (title, latitud, longitud, range, visited, map_id) VALUES ('Lugar 1', '37.422476', '-122.08525', '0.001', '0', '5')");
-        tx.executeSql("INSERT INTO markers (title, latitud, longitud, range, visited, map_id) VALUES ('Lugar 2', '37.422476', '-122.08525', '0.001', '0', '5')");
-        tx.executeSql("INSERT INTO markers (title, latitud, longitud, range, visited, map_id) VALUES ('Lugar 3', '37.422476', '-122.08525', '0.001', '0', '6')");
-        tx.executeSql("INSERT INTO markers (title, latitud, longitud, range, visited, map_id) VALUES ('Lugar 4', '37.422476', '-122.08525', '0.001', '0', '6')");
-        tx.executeSql("INSERT INTO markers (title, latitud, longitud, range, visited, map_id) VALUES ('Lugar 5', '37.422476', '-122.08525', '0.001', '0', '7')");
-        tx.executeSql("INSERT INTO markers (title, latitud, longitud, range, visited, map_id) VALUES ('Lugar 6', '37.422476', '-122.08525', '0.001', '0', '7')");
-        tx.executeSql("INSERT INTO markers (title, latitud, longitud, range, visited, map_id) VALUES ('Lugar 7', '37.422476', '-122.08525', '0.001', '0', '8')");
-        tx.executeSql("INSERT INTO markers (title, latitud, longitud, range, visited, map_id) VALUES ('Lugar 8', '37.422476', '-122.08525', '0.001', '0', '8')");
-        tx.executeSql("INSERT INTO markers (title, latitud, longitud, range, visited, map_id) VALUES ('Lugar 9', '37.422476', '-122.08525', '0.001', '0', '9')");
-        tx.executeSql("INSERT INTO markers (title, latitud, longitud, range, visited, map_id) VALUES ('Lugar 10', '37.422476', '-122.08525', '0.001', '0', '9')");
-
-        tx.executeSql("INSERT INTO markers (title, latitud, longitud, range, visited, map_id) VALUES ('Lugar 1', '37.422476', '-122.08525', '0.001', '0', '10')");
-        tx.executeSql("INSERT INTO markers (title, latitud, longitud, range, visited, map_id) VALUES ('Lugar 2', '37.422476', '-122.08525', '0.001', '0', '10')");
-        tx.executeSql("INSERT INTO markers (title, latitud, longitud, range, visited, map_id) VALUES ('Lugar 3', '37.422476', '-122.08525', '0.001', '0', '11')");
-        tx.executeSql("INSERT INTO markers (title, latitud, longitud, range, visited, map_id) VALUES ('Lugar 4', '37.422476', '-122.08525', '0.001', '0', '11')");
-        tx.executeSql("INSERT INTO markers (title, latitud, longitud, range, visited, map_id) VALUES ('Lugar 5', '37.422476', '-122.08525', '0.001', '0', '12')");
-        tx.executeSql("INSERT INTO markers (title, latitud, longitud, range, visited, map_id) VALUES ('Lugar 6', '37.422476', '-122.08525', '0.001', '0', '12')");
-        tx.executeSql("INSERT INTO markers (title, latitud, longitud, range, visited, map_id) VALUES ('Lugar 7', '37.422476', '-122.08525', '0.001', '0', '13')");
-        tx.executeSql("INSERT INTO markers (title, latitud, longitud, range, visited, map_id) VALUES ('Lugar 8', '37.422476', '-122.08525', '0.001', '0', '14')");
-        tx.executeSql("INSERT INTO markers (title, latitud, longitud, range, visited, map_id) VALUES ('Lugar 9', '37.422476', '-122.08525', '0.001', '0', '15')");
-        tx.executeSql("INSERT INTO markers (title, latitud, longitud, range, visited, map_id) VALUES ('Lugar 10', '37.422476', '-122.08525', '0.001', '0', '16')");
 
 		tx.executeSql("INSERT INTO users (name, email, nationality) VALUES ('Joshua', 'josshft@gmail.com', 'México')");
 
@@ -167,25 +149,87 @@ function getMarkers(id, element){
  * Funciones para la pagina de MAPS
  */
 function initPageMaps(){
+    CURRENTMARKERS = [];
     navigator.geolocation.getCurrentPosition(drawMap, onErrorGeolocation);
 }
 
-function saveBtnPopupListener(){
+function saveBtnPopupMarkerListener(){
     $('#save-btn-popup').on('click', function(e){
         e.preventDefault();
-        newPlaceName = $('#marker-name').val();
-        newPlaceRange = $('#marker-range').val();
-        drawMarker();
-        $('#popupDialog').popup("close");
+
+        if($('#marker-name').val()){
+            newPlaceName = $('#marker-name').val();
+            newPlaceRange = $('#marker-range').val();
+            $('#marker-name').val("");
+            $('#marker-range').val(1);
+            drawMarker();
+            $('#popupSaveMarker').popup("close");
+        }else{
+            alert("Debes ingresar un nombre");
+        }
     });
 }
 
-function cancelBtnPopupListener(){
+function cancelBtnPopupMarkerListener(){
     $('#cancel-btn-popup').on('click', function(e){
         e.preventDefault();
-        $('#popupDialog').popup("close");
+        $('#popupSaveMarker').popup("close");
     });
 }
+
+function saveMapListener(){
+    $('#save-map').on('click', function(e){
+        e.preventDefault();
+
+        if(!CURRENTMARKERS.isEmpty()){
+            map.setClickable(false);
+            $('#popupSaveMap').popup("open");
+        }else{
+            alert('Debes de poner al menos un lugar');
+        }
+
+    });
+}
+
+function saveBtnPopupMapListener(){
+    $('#savemap-btn-popup').on('click', function(e){
+        e.preventDefault();
+
+        if($('#map-name').val()){
+            var mapName = $('#map-name').val();
+            saveMap(mapName);
+            $('#popupSaveMap').popup("close");
+            //$( ":mobile-pagecontainer" ).pagecontainer( "change", "#index" );
+        }else{
+            alert("Debes ingresar un nombre");
+        }
+
+    });
+}
+
+function cancelBtnPopupMapListener(){
+    $('#cancelmap-btn-popup').on('click', function(e){
+        e.preventDefault();
+        $('#popupSaveMap').popup("close");
+    });
+}
+
+function saveMap(name){
+    db.transaction(function (tx) {
+        tx.executeSql("INSERT INTO maps (name, latitud, longitud, zoom) VALUES (?, ?, ? , ?)", [name, newPlacePos.lat, newPlacePos.lng, 13], function(tx, results){
+            saveMarkers(results.insertId);
+        });
+    });
+}
+
+function saveMarkers(id){
+    db.transaction(function (tx) {
+        CURRENTMARKERS.forEach(function(marker){
+            tx.executeSql("INSERT INTO markers (title, latitud, longitud, range, visited, map_id) VALUES (?, ?, ?, ?, ?, ?)", [marker.title, marker.position.lat, marker.position.lng, marker.range, 0, id]);
+        });
+    });
+}
+
 
 function searchButtonListener(){
     $('#searchBtn').on('click', function(e){
@@ -214,6 +258,10 @@ function searchButtonListener(){
 
 function drawMap(position){
 
+    if(map !== undefined){
+        map.remove();
+    }
+
     CENTER = new plugin.google.maps.LatLng(position.coords.latitude, position.coords.longitude);
 
     var div = document.getElementById("map");
@@ -233,7 +281,7 @@ function drawMap(position){
         //alert("Map was long clicked.\n" + latLng.toUrlValue());
         newPlacePos = latLng;
         map.setClickable(false);
-        $('#popupDialog').popup("open");
+        $('#popupSaveMarker').popup("open");
     });
 
 }
@@ -247,10 +295,16 @@ function initMarker(){
 }
 
 function drawMarker(){
-    map.addMarker({
+
+    var marker = {
         position: newPlacePos,
-        title: newPlaceName
-    });
+        title: newPlaceName,
+        range: newPlaceRange
+    };
+
+    map.addMarker(marker);
+
+    CURRENTMARKERS.add(marker);
 
     map.addPolygon({
         points: [

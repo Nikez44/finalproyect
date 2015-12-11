@@ -55,16 +55,6 @@
                             "count": 1
                         }
                     ],
-                    "/manifest/application": [
-                        {
-                            "xml": "<meta-data android:name=\"com.google.android.maps.v2.API_KEY\" android:value=\"AIzaSyBr4svogfWUznlVdbsYSt3vAvWxSw2v8uw\" />",
-                            "count": 1
-                        },
-                        {
-                            "xml": "<meta-data android:name=\"com.google.android.gms.version\" android:value=\"@integer/google_play_services_version\" />",
-                            "count": 1
-                        }
-                    ],
                     "/manifest": [
                         {
                             "xml": "<uses-permission android:name=\"android.permission.VIBRATE\" />",
@@ -88,7 +78,6 @@
                         },
                         {
                             "xml": "<uses-permission android:name=\"android.permission.ACCESS_COARSE_LOCATION\" />",
-                            "xml": "<uses-permission android:name=\"android.permission.ACCESS_COARSE_LOCATION\" />",
                             "count": 1
                         },
                         {
@@ -98,16 +87,10 @@
                         {
                             "xml": "<uses-feature android:glEsVersion=\"0x00020000\" android:required=\"true\" />",
                             "count": 1
-                        },
                         }
                     ],
                     "/manifest/application": [
                         {
-                            "xml": "<uses-permission android:name=\"android.permission.ACCESS_FINE_LOCATION\" />",
-                            "count": 1
-                        },
-                        {
-                            "xml": "<uses-feature android:glEsVersion=\"0x00020000\" android:required=\"true\" />",
                             "xml": "<meta-data android:name=\"com.google.android.maps.v2.API_KEY\" android:value=\"AIzaSyBr4svogfWUznlVdbsYSt3vAvWxSw2v8uw\" />",
                             "count": 1
                         },
