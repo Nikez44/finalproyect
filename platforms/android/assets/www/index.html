@@ -58,9 +58,9 @@
             </form>
 
             <a href="#" id="updatemap-btn-popup" data-role="button" class="ui-btn ui-btn-primary"><i
-                    class='zmdi zmdi-check'></i>Aceptar</a>
+                    class='zmdi zmdi-check'></i> Aceptar</a>
             <a href="#" id="updatecancelmap-btn-popup" data-role="button" class="ui-btn ui-btn-primary"><i
-                    class='zmdi zmdi-cancel'></i>Cancelar</a>
+                    class='zmdi zmdi-cancel'></i> Cancelar</a>
         </div>
     </section>
 
@@ -101,9 +101,9 @@
             </form>
 
             <a href="#" id="save-btn-popup" data-role="button" class="ui-btn ui-btn-primary"><i
-                    class='zmdi zmdi-check'></i>Aceptar</a>
+                    class='zmdi zmdi-check'></i> Aceptar</a>
             <a href="#" id="cancel-btn-popup" data-role="button" class="ui-btn ui-btn-primary"><i
-                    class='zmdi zmdi-cancel'></i>Cancelar</a>
+                    class='zmdi zmdi-cancel'></i> Cancelar</a>
         </div>
     </section>
 
@@ -120,9 +120,9 @@
             </form>
 
             <a href="#" id="savemap-btn-popup" data-role="button" class="ui-btn ui-btn-primary"><i
-                    class='zmdi zmdi-check'></i>Aceptar</a>
+                    class='zmdi zmdi-check'></i> Aceptar</a>
             <a href="#" id="cancelmap-btn-popup" data-role="button" class="ui-btn ui-btn-primary"><i
-                    class='zmdi zmdi-cancel'></i>Cancelar</a>
+                    class='zmdi zmdi-cancel'></i> Cancelar</a>
         </div>
     </section>
 
@@ -131,8 +131,10 @@
 
 <section data-role="page" id="ImagesMarkers">
     <header data-role="header" data-position="fixed" class="wow fadeInDown" data-wow-delay="0.2s">
-        <a href="#bottomsheet" class="ui-btn ui-btn-right wow fadeIn" data-wow-delay='1.2s'><i class="zmdi zmdi-more-vert"></i></a>
+        <a href="#bottomsheet" class="ui-btn ui-btn-right wow fadeIn" data-wow-delay='1.2s'><i
+                class="zmdi zmdi-more-vert"></i></a>
         <a href="#leftpanel" class="ui-btn ui-btn-left wow fadeIn" data-wow-delay='0.8s'><i class="zmdi zmdi-menu"></i></a>
+
         <h1 class="wow fadeIn" data-wow-delay='0.4s'>Nuevo Mapa</h1>
     </header>
 
@@ -140,8 +142,11 @@
         <div id="checkMark">
             <div id="data-marker">
                 <h3 id="name-marker"></h3>
+
                 <p id="latitude"></p>
+
                 <p id="longitude"></p>
+
                 <p id="range"></p>
             </div>
             <div id="btnMarker">
@@ -151,7 +156,8 @@
 
         <div id="gallery"></div>
 
-        <a href="#" class="ui-btn ui-btn-inline ui-btn-fab ui-btn-fab-bottom ui-btn-raised clr-primary" onclick="selectCamera();"><i class='zmdi zmdi-camera zmd-2x'></i></a>
+        <a href="#" class="ui-btn ui-btn-inline ui-btn-fab ui-btn-fab-bottom ui-btn-raised clr-primary"
+           onclick="selectCamera();"><i class='zmdi zmdi-camera zmd-2x'></i></a>
     </div>
 
     <section data-role="popup" id="popupImage">
@@ -176,7 +182,9 @@
 
 <section data-role="page" id="profile">
     <header data-role="header" data-position="fixed" class="wow fadeInDown" data-wow-delay="0.2s">
-        <a href="#bottomsheet" class="ui-btn ui-btn-right wow fadeIn" data-wow-delay='1.2s'><i class="zmdi zmdi-more-vert"></i></a>
+        <a href="#bottomsheet" class="ui-btn ui-btn-right wow fadeIn" data-wow-delay='1.2s'><i
+                class="zmdi zmdi-more-vert"></i></a>
+
         <h1 class="wow fadeIn" data-wow-delay='0.4s'>Perfil</h1>
     </header>
 
@@ -184,12 +192,15 @@
         <div class="nd2-card">
             <div id="profile-photo" class="card-media">
                 <img class="profile-thumbnail profile-photo">
+
                 <div class="card-media-overlay">
                     <div class="card-action">
                         <div class="row between-xs">
                             <div class="col-xs-12">
                                 <div class="box">
-                                    <a href="#" class="ui-btn ui-btn-inline waves-effect waves-button waves-effect waves-button"><img src="img/camera.png"></a>
+                                    <a href="#"
+                                       class="ui-btn ui-btn-inline waves-effect waves-button waves-effect waves-button"><img
+                                            src="img/camera.png" onclick="getPhoto()"></a>
                                 </div>
                             </div>
                         </div>
@@ -197,9 +208,9 @@
                 </div>
             </div>
             <div class="card-supporting-text" id="profile-info">
-                <input type="text" class="align-left" id="username" />
-                <input type="text" class="align-center" id="email" />
-                <input type="text" class="align-center" id="nationalityProfile" />
+                <input type="text" class="align-left" id="username"/>
+                <input type="text" class="align-center" id="email"/>
+                <input type="text" class="align-center" id="nationalityProfile"/>
                 <button class="ui-btn" id="saveChanges" onclick="editProfile()">Guardar</button>
             </div>
         </div>

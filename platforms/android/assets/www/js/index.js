@@ -143,8 +143,8 @@ function fillListView(){
 
                 var options = $('<div class="ui-grid-c">' +
                     '<div class="ui-block-a"><a href="#" class="ui-btn ui-btn-inline ui-mini vermap" data-id="'+item.id+'"><i class="zmdi zmdi-eye"></i> Ver</a></div>'+
-                    '<div class="ui-block-b"><a href="#" class="ui-btn ui-btn-inline ui-mini editmap" data-id="'+item.id+'"><i class="zmdi zmdi-edit"></i> Editar</a></div>'+
-                    '<div class="ui-block-c"><a href="#" class="ui-btn ui-btn-inline ui-mini deletemap" data-id="'+item.id+'"><i class="zmdi zmdi-delete"></i> Eliminar</a></div>'+
+                    //'<div class="ui-block-b"><a href="#" class="ui-btn ui-btn-inline ui-mini editmap" data-id="'+item.id+'"><i class="zmdi zmdi-edit"></i> Editar</a></div>'+
+                    //'<div class="ui-block-c"><a href="#" class="ui-btn ui-btn-inline ui-mini deletemap" data-id="'+item.id+'"><i class="zmdi zmdi-delete"></i> Eliminar</a></div>'+
                     '</div>');
 
                 element.append(options);
@@ -209,6 +209,7 @@ function saveMapListener() {
 
         if (!CURRENTMARKERS.isEmpty()) {
             map.setClickable(false);
+            $('#map-name').val('');
             $('#popupSaveMap').popup("open");
         } else {
             navigator.notification.alert(
@@ -367,24 +368,32 @@ function drawMarker(){
     });
 }
 
-var userId;
+var userId = 1;
+var previusName;
 function setUserData () {
+	var divUser = $( '#divUser' );
+	var divUserName = $( '#username' );
+	var nationDiv = $( '#nationality' );
+
+	divUser.empty();
+	divUserName.empty();
+	nationDiv.empty();
+
+	db = openDatabase('dpmaps', '1.0', 'BD de Mapas', 2 * 1024 * 1024);
+
 	db.transaction( function ( tx ) {
-		tx.executeSql( 'SELECT * FROM users', [], function ( tx, result ) {
+		tx.executeSql( 'SELECT * FROM users WHERE id='+userId, [], function ( tx, result ) {
 			for ( var i = 0; i < result.rows.length; i++ ) {
 				var item = result.rows.item( i );
 				var user = $( '<div class = "box profile-text"><strong>' + item.name + '</strong>' +
 					'<span class="subline">' + item.email + '</span>' );
 				var nationality = item.nationality;
 			}
-			userId = item.id;
+			previusName = item.name;
 			$( '.profile-photo' ).attr( 'src', item.img );
-			var divUser = $( '#divUser' );
-			var divUserName = $( '#username' );
-			var nationDiv = $( '#nationality' );
 			$( '#nationalityProfile' ).val( nationality );
 			$( '#email' ).val( item.email );
-			$( '#blood' ).append( item.blood );
+			$( '#blood' ).empty().append( item.blood );
 			divUser.append( user );
 			divUserName.val( item.name );
 			nationDiv.append( nationality );
@@ -406,13 +415,16 @@ function editProfile () {
 	console.log( userId );
 	console.log( userName );
 
+	db = openDatabase('dpmaps', '1.0', 'BD de Mapas', 2 * 1024 * 1024);
 	db.transaction( function ( tx ) {
-		tx.executeSql( 'UPDATE users SET name=?, email=?, nationality=? WHERE id=?;', [ userName, email, nationality, userId ] );
+		tx.executeSql( 'UPDATE users SET name=?, email=?, nationality=? WHERE id=?', [ userName, email, nationality, userId ], setUserData, onBdError );
 	} );
 
-	setUserData();
+	location.href = '#index';
+}
 
-	location.href = 'index.html';
+function onBdError (error) {
+	console.log(error.code + " " + error.message);
 }
 
 function onErrorGeolocation ( error ) {
@@ -491,8 +503,7 @@ function onCheck() {
 
 function isOnRange() {
 
-
-    if ((Math.abs(latitudMarkerCheck- currentLatitude) <= rangeMarker) && (Math.abs( longitudMarkerCheck - currentLongitude) <= rangeMarker)) {
+    if ((Math.abs(latitudMarkerCheck - currentLatitude) <= rangeMarker) && (Math.abs( longitudMarkerCheck - currentLongitude) <= rangeMarker)) {
         return true;
     } else {
         return false;
