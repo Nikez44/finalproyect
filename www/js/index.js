@@ -141,8 +141,8 @@ function fillListView(){
 
                 var options = $('<div class="ui-grid-c">' +
                     '<div class="ui-block-a"><a href="#" class="ui-btn ui-btn-inline ui-mini vermap" data-id="'+item.id+'"><i class="zmdi zmdi-eye"></i> Ver</a></div>'+
-                    '<div class="ui-block-b"><a href="#" class="ui-btn ui-btn-inline ui-mini editmap" data-id="'+item.id+'"><i class="zmdi zmdi-edit"></i> Editar</a></div>'+
-                    '<div class="ui-block-c"><a href="#" class="ui-btn ui-btn-inline ui-mini deletemap" data-id="'+item.id+'"><i class="zmdi zmdi-delete"></i> Eliminar</a></div>'+
+                    //'<div class="ui-block-b"><a href="#" class="ui-btn ui-btn-inline ui-mini editmap" data-id="'+item.id+'"><i class="zmdi zmdi-edit"></i> Editar</a></div>'+
+                    //'<div class="ui-block-c"><a href="#" class="ui-btn ui-btn-inline ui-mini deletemap" data-id="'+item.id+'"><i class="zmdi zmdi-delete"></i> Eliminar</a></div>'+
                     '</div>');
 
                 element.append(options);
